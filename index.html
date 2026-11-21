@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
@@ -10,7 +11,9 @@
   <!-- Google Fonts: Romantic Script, Editorial Serif & Modern Clean Body -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Great+Vibes&family=Playfair+Display:ital,wght@0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Great+Vibes&family=Playfair+Display:ital,wght@0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
 
   <style>
     /* ==========================================================================
@@ -43,7 +46,9 @@
       --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    *, *::before, *::after {
+    *,
+    *::before,
+    *::after {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
@@ -94,8 +99,15 @@
     }
 
     @keyframes auraFloat {
-      0% { transform: translate(0, 0) scale(1); opacity: 0.7; }
-      100% { transform: translate(8vw, 12vh) scale(1.15); opacity: 0.95; }
+      0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.7;
+      }
+
+      100% {
+        transform: translate(8vw, 12vh) scale(1.15);
+        opacity: 0.95;
+      }
     }
 
     /* ==========================================================================
@@ -145,6 +157,9 @@
       text-shadow: 0 0 12px var(--gold-glow);
       text-decoration: none;
       transition: transform 0.3s ease;
+      display: inline-block;
+      padding-right: 0.2em;
+      overflow: visible;
     }
 
     .nav-brand:hover {
@@ -203,19 +218,26 @@
     .music-btn.playing .music-waves span:nth-child(1) {
       animation: soundBar 0.9s ease-in-out infinite alternate;
     }
+
     .music-btn.playing .music-waves span:nth-child(2) {
       animation: soundBar 0.7s ease-in-out 0.2s infinite alternate;
     }
+
     .music-btn.playing .music-waves span:nth-child(3) {
       animation: soundBar 1.1s ease-in-out 0.4s infinite alternate;
     }
 
     @keyframes soundBar {
-      0% { height: 3px; }
-      100% { height: 14px; }
+      0% {
+        height: 3px;
+      }
+
+      100% {
+        height: 14px;
+      }
     }
 
-    /* Chapter Indicator Dots (Desktop) */
+    /* Chapter Indicator Dots (Desktop) - 7 Sections */
     .chapter-indicator {
       position: fixed;
       right: 14px;
@@ -273,6 +295,7 @@
       text-align: center;
       padding: 60px 0;
       position: relative;
+      overflow: visible;
     }
 
     /* Glass Card Standard */
@@ -286,7 +309,8 @@
       padding: 34px 26px;
       width: 100%;
       position: relative;
-      overflow: hidden;
+      overflow: visible;
+      /* Prevents script font overhang from being clipped */
       transition: transform 0.3s ease, border-color 0.3s ease;
     }
 
@@ -298,6 +322,7 @@
       right: 0;
       height: 1px;
       background: linear-gradient(90deg, transparent, var(--glass-highlight), transparent);
+      border-radius: 28px 28px 0 0;
     }
 
     /* Typography */
@@ -318,17 +343,31 @@
       box-shadow: 0 2px 10px rgba(246, 200, 110, 0.1);
     }
 
+    /* FIX CHANGE 1: Full-width comfortable line-height & padding for cursive headings */
     .script-title {
       font-family: var(--font-cursive);
-      font-size: clamp(2.8rem, 8vw, 4.4rem);
-      line-height: 1.15;
+      font-size: clamp(2.2rem, 7.5vw, 4.2rem);
+      line-height: 1.35;
+      overflow: visible;
+      padding: 0.05em 0.15em;
       color: var(--text-white);
       text-shadow: 0 4px 20px rgba(255, 75, 114, 0.4);
-      margin-bottom: 12px;
+      margin-bottom: 14px;
+      word-wrap: break-word;
     }
 
-    /* Iridescent Shimmer on Name */
-    .script-title .highlight {
+    /* FIX CHANGE 1: Fix the cropped "l" in "Sejal" everywhere!
+       - display: inline-block with generous right padding (0.22em) so the cursive flourish is NEVER cut off
+       - overflow: visible
+       - line-height: 1.35
+       - word-break: keep-all so "Sejal" stays intact on mobile */
+    .script-title .highlight,
+    .highlight {
+      display: inline-block;
+      padding: 0 0.22em 0 0.06em;
+      overflow: visible;
+      line-height: 1.35;
+      vertical-align: baseline;
       background: linear-gradient(120deg, #ffe5a3 0%, #ff8fab 35%, #ffd166 70%, #ffe5a3 100%);
       background-size: 200% auto;
       -webkit-background-clip: text;
@@ -336,11 +375,17 @@
       text-shadow: none;
       filter: drop-shadow(0 0 16px rgba(246, 200, 110, 0.5));
       animation: shineText 5s linear infinite;
+      word-break: keep-all;
     }
 
     @keyframes shineText {
-      0% { background-position: 0% center; }
-      100% { background-position: 200% center; }
+      0% {
+        background-position: 0% center;
+      }
+
+      100% {
+        background-position: 200% center;
+      }
     }
 
     .romantic-date {
@@ -395,7 +440,8 @@
       user-select: none;
     }
 
-    .btn-romantic:hover, .btn-romantic:focus-visible {
+    .btn-romantic:hover,
+    .btn-romantic:focus-visible {
       transform: translateY(-3px) scale(1.03);
       box-shadow: 0 12px 32px rgba(255, 75, 114, 0.6);
       background: linear-gradient(135deg, #ff6385 0%, #e62855 100%);
@@ -458,17 +504,41 @@
     }
 
     @keyframes heartbeat {
-      0% { transform: scale(1); }
-      14% { transform: scale(1.18); }
-      28% { transform: scale(1); }
-      42% { transform: scale(1.14); }
-      70% { transform: scale(1); }
-      100% { transform: scale(1); }
+      0% {
+        transform: scale(1);
+      }
+
+      14% {
+        transform: scale(1.18);
+      }
+
+      28% {
+        transform: scale(1);
+      }
+
+      42% {
+        transform: scale(1.14);
+      }
+
+      70% {
+        transform: scale(1);
+      }
+
+      100% {
+        transform: scale(1);
+      }
     }
 
     @keyframes pulseRings {
-      0% { transform: scale(0.8); opacity: 0.9; }
-      100% { transform: scale(2); opacity: 0; }
+      0% {
+        transform: scale(0.8);
+        opacity: 0.9;
+      }
+
+      100% {
+        transform: scale(2);
+        opacity: 0;
+      }
     }
 
     .heart-tap-hint {
@@ -481,8 +551,15 @@
     }
 
     @keyframes breatheText {
-      0% { opacity: 0.6; transform: translateY(0); }
-      100% { opacity: 1; transform: translateY(-3px); }
+      0% {
+        opacity: 0.6;
+        transform: translateY(0);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(-3px);
+      }
     }
 
     /* ==========================================================================
@@ -521,14 +598,29 @@
     }
 
     @keyframes flickerFlame {
-      0% { transform: scale(1) rotate(-2deg); }
-      50% { transform: scale(1.08, 0.95) rotate(3deg); }
-      100% { transform: scale(0.95, 1.05) rotate(-1deg); }
+      0% {
+        transform: scale(1) rotate(-2deg);
+      }
+
+      50% {
+        transform: scale(1.08, 0.95) rotate(3deg);
+      }
+
+      100% {
+        transform: scale(0.95, 1.05) rotate(-1deg);
+      }
     }
 
     @keyframes pulseGlow {
-      0% { opacity: 0.5; transform: scale(0.9); }
-      100% { opacity: 0.9; transform: scale(1.2); }
+      0% {
+        opacity: 0.5;
+        transform: scale(0.9);
+      }
+
+      100% {
+        opacity: 0.9;
+        transform: scale(1.2);
+      }
     }
 
     .cake-container.blown .candle-flame,
@@ -553,8 +645,15 @@
     }
 
     @keyframes riseSmoke {
-      0% { opacity: 0.7; transform: translateX(-50%) translateY(0) scale(0.6); }
-      100% { opacity: 0; transform: translateX(-40%) translateY(-35px) scale(1.5); }
+      0% {
+        opacity: 0.7;
+        transform: translateX(-50%) translateY(0) scale(0.6);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateX(-40%) translateY(-35px) scale(1.5);
+      }
     }
 
     .wish-hint {
@@ -567,13 +666,12 @@
     }
 
     /* ==========================================================================
-       NEW SECTION: SEJAL'S OFFICIAL WORLD ATLAS 🌍
+       SECTION: SEJAL'S OFFICIAL WORLD ATLAS 🌍
        ========================================================================== */
     .atlas-card {
       position: relative;
     }
 
-    /* Stylized Soft-Pink / Parchment Cartoon Map Board */
     .atlas-map-board {
       position: relative;
       background: linear-gradient(145deg, rgba(58, 14, 38, 0.92) 0%, rgba(32, 6, 22, 0.96) 100%);
@@ -587,7 +685,6 @@
       margin-bottom: 20px;
     }
 
-    /* Decorative Map Compass & Clouds */
     .atlas-compass-bg {
       position: absolute;
       top: 12px;
@@ -611,11 +708,15 @@
     }
 
     @keyframes floatShip {
-      0% { transform: translateY(0) rotate(-2deg); }
-      100% { transform: translateY(-4px) rotate(3deg); }
+      0% {
+        transform: translateY(0) rotate(-2deg);
+      }
+
+      100% {
+        transform: translateY(-4px) rotate(3deg);
+      }
     }
 
-    /* Pins Grid */
     .atlas-pins-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -631,7 +732,6 @@
       }
     }
 
-    /* Single Map Pin Station Card */
     .map-station {
       background: rgba(255, 255, 255, 0.06);
       border: 1px solid rgba(255, 215, 230, 0.18);
@@ -654,11 +754,6 @@
       transform: translateY(-2px);
     }
 
-    .map-station:active {
-      transform: scale(0.98);
-    }
-
-    /* Tappable Pin Target Button (at least 48px touch-friendly) */
     .pin-btn {
       width: 48px;
       height: 48px;
@@ -681,7 +776,6 @@
       box-shadow: 0 0 15px var(--gold-glow);
     }
 
-    /* Location Label */
     .station-name {
       font-family: var(--font-serif);
       font-size: 1.05rem;
@@ -691,7 +785,6 @@
       margin-bottom: 6px;
     }
 
-    /* Interactive Teasing Speech Bubble */
     .speech-bubble {
       background: linear-gradient(135deg, #ffffff 0%, #fff2f6 100%);
       color: #380820;
@@ -727,7 +820,6 @@
       transform: translateY(0) scale(1);
     }
 
-    /* Official Rubber Stamp */
     .atlas-stamp {
       font-family: var(--font-serif);
       font-size: 0.74rem;
@@ -751,47 +843,76 @@
       transform: rotate(-4deg) scale(1);
     }
 
-    /* 4 SPECIFIC ANIMATIONS */
-    /* 1. Indore: Pin zooms away like a flight */
     .map-station.anim-indore.tapped .pin-btn {
       animation: pinFlightZoom 0.9s cubic-bezier(0.2, 0.8, 0.3, 1.2) forwards;
     }
+
     @keyframes pinFlightZoom {
-      0% { transform: scale(1) translate(0, 0); }
-      40% { transform: scale(1.35) translate(8px, -18px) rotate(18deg); }
-      70% { transform: scale(1.15) translate(-4px, -10px) rotate(-6deg); }
-      100% { transform: scale(1.05) translate(0, 0) rotate(0deg); }
+      0% {
+        transform: scale(1) translate(0, 0);
+      }
+
+      40% {
+        transform: scale(1.35) translate(8px, -18px) rotate(18deg);
+      }
+
+      70% {
+        transform: scale(1.15) translate(-4px, -10px) rotate(-6deg);
+      }
+
+      100% {
+        transform: scale(1.05) translate(0, 0) rotate(0deg);
+      }
     }
 
-    /* 2. Bokaro: Palm tree & wave sway */
     .map-station.anim-bokaro.tapped .pin-btn {
       animation: palmIslandSway 1.2s ease-in-out infinite alternate;
     }
+
     @keyframes palmIslandSway {
-      0% { transform: rotate(-8deg) scale(1.05); }
-      100% { transform: rotate(10deg) scale(1.1); }
+      0% {
+        transform: rotate(-8deg) scale(1.05);
+      }
+
+      100% {
+        transform: rotate(10deg) scale(1.1);
+      }
     }
 
-    /* 3. Dhanbad: Dubai luxury skyline sparkle */
     .map-station.anim-dhanbad.tapped .pin-btn {
       animation: dubaiLuxuryGlow 1.4s ease-in-out infinite alternate;
     }
+
     @keyframes dubaiLuxuryGlow {
-      0% { transform: scale(1); filter: drop-shadow(0 0 6px rgba(246, 200, 110, 0.6)); }
-      100% { transform: scale(1.15); filter: drop-shadow(0 0 18px rgba(246, 200, 110, 1)); }
+      0% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 6px rgba(246, 200, 110, 0.6));
+      }
+
+      100% {
+        transform: scale(1.15);
+        filter: drop-shadow(0 0 18px rgba(246, 200, 110, 1));
+      }
     }
 
-    /* 4. Assam: Spinning compass & wobbling question */
     .map-station.anim-assam.tapped .pin-btn {
       animation: compassSearchSpin 1.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
     }
+
     @keyframes compassSearchSpin {
-      0% { transform: rotate(0deg) scale(1); }
-      50% { transform: rotate(180deg) scale(1.12); }
-      100% { transform: rotate(360deg) scale(1); }
+      0% {
+        transform: rotate(0deg) scale(1);
+      }
+
+      50% {
+        transform: rotate(180deg) scale(1.12);
+      }
+
+      100% {
+        transform: rotate(360deg) scale(1);
+      }
     }
 
-    /* Unlocked Reward Box after all 4 pins are tapped */
     .atlas-reward-box {
       background: linear-gradient(135deg, rgba(62, 14, 42, 0.9) 0%, rgba(35, 6, 24, 0.95) 100%);
       border: 1.5px solid var(--gold-light);
@@ -837,6 +958,228 @@
       line-height: 1.6;
       margin-bottom: 0;
       text-shadow: 0 0 10px rgba(246, 200, 110, 0.3);
+    }
+
+    /* ==========================================================================
+       CHANGE 2: CLASS 6/A MEMORY SECTION ("The Day I Lost My Mind")
+       ========================================================================== */
+    .memory-card {
+      position: relative;
+      text-align: center;
+    }
+
+    .chalkboard-box {
+      position: relative;
+      background: linear-gradient(145deg, #240a1b 0%, #150310 100%);
+      border: 2px dashed rgba(246, 200, 110, 0.45);
+      border-radius: 24px;
+      padding: 24px 18px;
+      box-shadow: inset 0 0 35px rgba(0, 0, 0, 0.6), 0 12px 30px rgba(0, 0, 0, 0.4);
+      margin-bottom: 24px;
+      cursor: pointer;
+      user-select: none;
+      touch-action: manipulation;
+    }
+
+    /* Chalkboard doodle badge */
+    .chalk-doodle-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1.5px solid rgba(255, 240, 246, 0.4);
+      border-radius: 10px;
+      padding: 4px 12px;
+      font-family: var(--font-handwriting);
+      font-size: 1.1rem;
+      color: var(--gold-light);
+      margin-bottom: 12px;
+      text-shadow: 0 0 8px rgba(246, 200, 110, 0.4);
+    }
+
+    /* School Classroom Illustration (Girl with Kajal Eyes & Ribbon Hairstyle + Desk Doodle) */
+    .classroom-illustration {
+      width: 100%;
+      max-width: 320px;
+      height: 150px;
+      margin: 4px auto 16px auto;
+      display: block;
+      filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.35));
+    }
+
+    /* Kajal Eye Slow Blink Animation */
+    .kajal-eye-lid {
+      transform-origin: center center;
+      animation: kajalBlink 4.2s infinite ease-in-out;
+    }
+
+    @keyframes kajalBlink {
+
+      0%,
+      42%,
+      46%,
+      100% {
+        transform: scaleY(1);
+      }
+
+      44% {
+        transform: scaleY(0.08);
+      }
+    }
+
+    /* Sparkle Glint on Kajal Wing */
+    .kajal-glint {
+      transform-origin: center center;
+      animation: kajalGlintPulse 2.4s infinite ease-in-out;
+    }
+
+    @keyframes kajalGlintPulse {
+
+      0%,
+      100% {
+        transform: scale(0.6) rotate(0deg);
+        opacity: 0.3;
+      }
+
+      50% {
+        transform: scale(1.3) rotate(90deg);
+        opacity: 1;
+        filter: drop-shadow(0 0 8px #ffd166);
+      }
+    }
+
+    /* Floating Hearts Drifting from Desk Doodle */
+    .desk-heart-drift-1 {
+      animation: driftHeart 2.8s infinite ease-out;
+    }
+
+    .desk-heart-drift-2 {
+      animation: driftHeart 3.2s 1.2s infinite ease-out;
+    }
+
+    @keyframes driftHeart {
+      0% {
+        transform: translate(0, 0) scale(0.5);
+        opacity: 0;
+      }
+
+      30% {
+        opacity: 0.9;
+      }
+
+      100% {
+        transform: translate(35px, -35px) scale(1.1);
+        opacity: 0;
+      }
+    }
+
+    /* Tap-to-reveal story line items */
+    .story-lines-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 14px 0;
+      text-align: left;
+    }
+
+    .story-line-item {
+      background: rgba(255, 255, 255, 0.05);
+      border-left: 3px solid var(--rose-primary);
+      border-radius: 0 12px 12px 0;
+      padding: 10px 14px;
+      font-family: var(--font-handwriting);
+      font-size: clamp(1.15rem, 3.8vw, 1.35rem);
+      line-height: 1.45;
+      color: #fff;
+      opacity: 0;
+      transform: translateY(12px) scale(0.97);
+      transition: all 0.5s var(--ease-bounce);
+      display: none;
+    }
+
+    .story-line-item.revealed {
+      display: block;
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .story-line-item.line-highlight {
+      border-left-color: var(--gold-light);
+      background: rgba(246, 200, 110, 0.09);
+      color: var(--gold-light);
+    }
+
+    /* Tap hint pill */
+    .chalk-tap-hint {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      color: var(--blush-soft);
+      margin-top: 10px;
+      font-weight: 500;
+      animation: breatheText 2s ease-in-out infinite alternate;
+    }
+
+    /* Closing Reveal Box (Years later...) */
+    .memory-closing-box {
+      background: linear-gradient(135deg, rgba(65, 14, 42, 0.88) 0%, rgba(35, 6, 24, 0.95) 100%);
+      border: 1.5px solid var(--rose-light);
+      border-radius: 20px;
+      padding: 0;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transform: translateY(18px);
+      transition: all 0.7s var(--ease-romantic);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px var(--rose-glow);
+      margin-top: 14px;
+      text-align: center;
+    }
+
+    .memory-closing-box.unlocked {
+      max-height: 380px;
+      opacity: 1;
+      transform: translateY(0);
+      padding: 24px 20px;
+    }
+
+    .crush-stamp {
+      display: inline-block;
+      font-family: var(--font-serif);
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--gold-light);
+      border: 1.5px solid var(--gold-primary);
+      border-radius: 8px;
+      padding: 6px 14px;
+      margin-bottom: 12px;
+      transform: rotate(-3deg);
+      box-shadow: 0 0 12px rgba(246, 200, 110, 0.3);
+    }
+
+    .memory-closing-quote {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(1.08rem, 3.4vw, 1.3rem);
+      color: #ffe5a3;
+      line-height: 1.6;
+      margin-bottom: 0;
+      animation: gentleHeartBeat 2.6s infinite ease-in-out;
+    }
+
+    @keyframes gentleHeartBeat {
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.02);
+        text-shadow: 0 0 12px rgba(246, 200, 110, 0.5);
+      }
     }
 
     /* ==========================================================================
@@ -1235,29 +1578,48 @@
     }
 
     @keyframes heartTwinkle {
-      0%, 100% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.8; }
-      50% { transform: translate(-50%, -50%) scale(1.25); opacity: 1; filter: drop-shadow(0 0 10px #ff6b8b); }
+
+      0%,
+      100% {
+        transform: translate(-50%, -50%) scale(0.9);
+        opacity: 0.8;
+      }
+
+      50% {
+        transform: translate(-50%, -50%) scale(1.25);
+        opacity: 1;
+        filter: drop-shadow(0 0 10px #ff6b8b);
+      }
     }
 
-    /* Center of Big Heart */
+    /* Center of Big Heart - FIX CHANGE 1: overflow visible & comfortable line-height */
     .heart-center-text {
       position: relative;
       z-index: 4;
       text-align: center;
       animation: floatCenter 3.5s ease-in-out infinite alternate;
+      overflow: visible;
     }
 
     @keyframes floatCenter {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-6px); }
+      0% {
+        transform: translateY(0);
+      }
+
+      100% {
+        transform: translateY(-6px);
+      }
     }
 
     .heart-center-name {
       font-family: var(--font-cursive);
-      font-size: clamp(2.4rem, 7vw, 3.2rem);
+      font-size: clamp(2.3rem, 7vw, 3.2rem);
       color: var(--gold-light);
       text-shadow: 0 0 18px var(--gold-glow);
-      line-height: 1;
+      line-height: 1.35;
+      padding: 0 0.2em;
+      overflow: visible;
+      display: inline-block;
     }
 
     .heart-center-sub {
@@ -1291,6 +1653,7 @@
         transform: translate(-50%, -50%) scale(0.3) rotate(0deg);
         opacity: 1;
       }
+
       100% {
         transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.4) rotate(var(--rot));
         opacity: 0;
@@ -1311,10 +1674,12 @@
         transform: translate(-50%, -50%) scale(0.4) rotate(0deg);
         opacity: 0;
       }
+
       20% {
         opacity: 1;
         transform: translate(-50%, -50%) scale(1.3) rotate(-10deg);
       }
+
       100% {
         transform: translate(calc(-50% + var(--kdx)), calc(-50% - 130px)) scale(1.8) rotate(15deg);
         opacity: 0;
@@ -1340,38 +1705,50 @@
       main {
         padding: 0 16px 60px 16px;
       }
+
       .glass-card {
         padding: 28px 18px;
         border-radius: 22px;
       }
+
       .card-face {
         padding: 24px 18px;
       }
+
       .script-title {
-        font-size: clamp(2.3rem, 10vw, 3.2rem);
+        font-size: clamp(2.1rem, 8vw, 3.2rem);
+        line-height: 1.35;
       }
+
       .chapter-indicator {
-        display: none; /* Hide dots on narrow screens for maximum card space */
+        display: none;
+        /* Hide dots on narrow screens for maximum card space */
       }
     }
 
     /* Respect Reduced Motion */
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
+
+      *,
+      *::before,
+      *::after {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
       }
+
       body::before {
         display: none;
       }
+
       .drawn-heart-path {
         stroke-dashoffset: 0 !important;
       }
     }
   </style>
 </head>
+
 <body>
 
   <!-- BACKGROUND GRAPHICS: Floating Hearts & Rose Petals Canvas -->
@@ -1381,7 +1758,7 @@
   <!-- TOP PERSISTENT NAVBAR -->
   <nav class="top-nav" aria-label="Main Navigation">
     <a href="#openingScreen" class="nav-brand" id="brandLogo">Sejal ❤️</a>
-    
+
     <div class="nav-controls">
       <!-- Music toggle button -->
       <button class="music-btn" id="musicToggle" aria-label="Toggle background music">
@@ -1395,14 +1772,21 @@
     </div>
   </nav>
 
-  <!-- CHAPTER QUICK-DOTS (Desktop right side navigation) -->
+  <!-- CHAPTER QUICK-DOTS (Desktop right side navigation) - 7 Sections -->
   <aside class="chapter-indicator" aria-label="Page Sections">
-    <button class="chapter-dot active" data-target="openingScreen" title="Opening Screen" aria-label="Go to opening screen"></button>
-    <button class="chapter-dot" data-target="birthdayScreen" title="Birthday Reveal" aria-label="Go to birthday reveal"></button>
-    <button class="chapter-dot" data-target="atlasScreen" title="Sejal's World Atlas" aria-label="Go to Sejal's World Atlas"></button>
+    <button class="chapter-dot active" data-target="openingScreen" title="Opening Screen"
+      aria-label="Go to opening screen"></button>
+    <button class="chapter-dot" data-target="birthdayScreen" title="Birthday Reveal"
+      aria-label="Go to birthday reveal"></button>
+    <button class="chapter-dot" data-target="atlasScreen" title="Sejal's World Atlas"
+      aria-label="Go to Sejal's World Atlas"></button>
+    <button class="chapter-dot" data-target="memoryScreen" title="Class 6/A Memory"
+      aria-label="Go to Class 6/A memory"></button>
     <button class="chapter-dot" data-target="notesScreen" title="Love Notes" aria-label="Go to love notes"></button>
-    <button class="chapter-dot" data-target="momentScreen" title="Our Year Moment" aria-label="Go to our moment"></button>
-    <button class="chapter-dot" data-target="finalScreen" title="Final Surprise" aria-label="Go to final surprise"></button>
+    <button class="chapter-dot" data-target="momentScreen" title="Our Year Moment"
+      aria-label="Go to our moment"></button>
+    <button class="chapter-dot" data-target="finalScreen" title="Final Surprise"
+      aria-label="Go to final surprise"></button>
   </aside>
 
   <!-- OPTIONAL PLACEHOLDER AUDIO TAG: Easy for you to drop in any MP3 -->
@@ -1422,26 +1806,29 @@
         <span class="badge-pill" id="openingBadge">A Special Gift</span>
 
         <!-- Softly pulsing hero heart -->
-        <div class="hero-heart-container" id="heroHeartButton" role="button" tabindex="0" aria-label="Open birthday surprise">
+        <div class="hero-heart-container" id="heroHeartButton" role="button" tabindex="0"
+          aria-label="Open birthday surprise">
           <div class="heart-pulse-glow" aria-hidden="true"></div>
           <div class="heart-svg-wrapper">
             <svg viewBox="0 0 100 90" fill="none" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
               <defs>
                 <linearGradient id="heartGradHero" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#ff6b8b"/>
-                  <stop offset="50%" stop-color="#e83a67"/>
-                  <stop offset="100%" stop-color="#a41038"/>
+                  <stop offset="0%" stop-color="#ff6b8b" />
+                  <stop offset="50%" stop-color="#e83a67" />
+                  <stop offset="100%" stop-color="#a41038" />
                 </linearGradient>
               </defs>
-              <path d="M50 85 C50 85 88 56 88 28 C88 12 74 2 59 2 C53 2 50 6 50 6 C50 6 47 2 41 2 C26 2 12 12 12 28 C12 56 50 85 50 85 Z" 
-                    fill="url(#heartGradHero)"/>
-              <path d="M26 14 C18 20 18 30 20 38" stroke="rgba(255,255,255,0.45)" stroke-width="3" stroke-linecap="round"/>
+              <path
+                d="M50 85 C50 85 88 56 88 28 C88 12 74 2 59 2 C53 2 50 6 50 6 C50 6 47 2 41 2 C26 2 12 12 12 28 C12 56 50 85 50 85 Z"
+                fill="url(#heartGradHero)" />
+              <path d="M26 14 C18 20 18 30 20 38" stroke="rgba(255,255,255,0.45)" stroke-width="3"
+                stroke-linecap="round" />
             </svg>
           </div>
         </div>
 
         <h1 class="script-title" id="openingTitle">Something special for you, <span class="highlight">Sejal</span>…</h1>
-        
+
         <p class="body-romantic" id="openingSubtitle">
           A little personal universe made just for you, crafted with every bit of my love.
         </p>
@@ -1465,52 +1852,58 @@
         <span class="badge-pill" id="birthdayBadge">✨ Today's Celebration ✨</span>
 
         <!-- Interactive Birthday Cake with Blow-out Candle -->
-        <div class="cake-container" id="cakeInteractive" role="button" tabindex="0" aria-label="Tap candle to blow it out and make a wish">
+        <div class="cake-container" id="cakeInteractive" role="button" tabindex="0"
+          aria-label="Tap candle to blow it out and make a wish">
           <svg class="cake-svg" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <linearGradient id="frostingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#ffb8cc"/>
-                <stop offset="100%" stop-color="#f06292"/>
+                <stop offset="0%" stop-color="#ffb8cc" />
+                <stop offset="100%" stop-color="#f06292" />
               </linearGradient>
               <linearGradient id="baseGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#fdf4eb"/>
-                <stop offset="100%" stop-color="#f3d7c5"/>
+                <stop offset="0%" stop-color="#fdf4eb" />
+                <stop offset="100%" stop-color="#f3d7c5" />
               </linearGradient>
               <radialGradient id="flameGrad" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="#fff8db"/>
-                <stop offset="50%" stop-color="#ffd152"/>
-                <stop offset="100%" stop-color="#ff7b2b"/>
+                <stop offset="0%" stop-color="#fff8db" />
+                <stop offset="50%" stop-color="#ffd152" />
+                <stop offset="100%" stop-color="#ff7b2b" />
               </radialGradient>
               <radialGradient id="flameAura" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="rgba(255, 214, 94, 0.65)"/>
-                <stop offset="100%" stop-color="rgba(255, 123, 43, 0)"/>
+                <stop offset="0%" stop-color="rgba(255, 214, 94, 0.65)" />
+                <stop offset="100%" stop-color="rgba(255, 123, 43, 0)" />
               </radialGradient>
             </defs>
             <!-- Cake Plate -->
-            <ellipse cx="60" cy="100" rx="50" ry="10" fill="rgba(246, 200, 110, 0.45)"/>
+            <ellipse cx="60" cy="100" rx="50" ry="10" fill="rgba(246, 200, 110, 0.45)" />
             <!-- Cake Bottom Layer -->
-            <path d="M22 75 C22 75 22 92 60 92 C98 92 98 75 98 75 L98 62 C98 62 98 76 60 76 C22 76 22 62 22 62 Z" fill="url(#baseGrad)"/>
+            <path d="M22 75 C22 75 22 92 60 92 C98 92 98 75 98 75 L98 62 C98 62 98 76 60 76 C22 76 22 62 22 62 Z"
+              fill="url(#baseGrad)" />
             <!-- Cake Frosting Layer -->
-            <path d="M20 62 C20 62 20 80 60 80 C100 80 100 62 100 62 C100 48 80 46 60 46 C40 46 20 48 20 62 Z" fill="url(#frostingGrad)"/>
+            <path d="M20 62 C20 62 20 80 60 80 C100 80 100 62 100 62 C100 48 80 46 60 46 C40 46 20 48 20 62 Z"
+              fill="url(#frostingGrad)" />
             <!-- Cream drips -->
-            <path d="M20 60 Q30 72 40 60 Q50 72 60 60 Q70 72 80 60 Q90 72 100 60" stroke="#ffffff" stroke-width="3" stroke-linecap="round" fill="none"/>
+            <path d="M20 60 Q30 72 40 60 Q50 72 60 60 Q70 72 80 60 Q90 72 100 60" stroke="#ffffff" stroke-width="3"
+              stroke-linecap="round" fill="none" />
             <!-- Sprinkles -->
-            <circle cx="35" cy="56" r="2" fill="#ffd152"/>
-            <circle cx="50" cy="52" r="2" fill="#ffffff"/>
-            <circle cx="70" cy="54" r="2" fill="#ffd152"/>
-            <circle cx="85" cy="58" r="2" fill="#ff4b72"/>
+            <circle cx="35" cy="56" r="2" fill="#ffd152" />
+            <circle cx="50" cy="52" r="2" fill="#ffffff" />
+            <circle cx="70" cy="54" r="2" fill="#ffd152" />
+            <circle cx="85" cy="58" r="2" fill="#ff4b72" />
             <!-- Candle Stick -->
-            <rect x="57" y="24" width="6" height="24" rx="3" fill="#ffffff"/>
-            <path d="M57 28 L63 32 M57 36 L63 40" stroke="#f06292" stroke-width="2"/>
-            <line x1="60" y1="24" x2="60" y2="19" stroke="#333333" stroke-width="1.5"/>
+            <rect x="57" y="24" width="6" height="24" rx="3" fill="#ffffff" />
+            <path d="M57 28 L63 32 M57 36 L63 40" stroke="#f06292" stroke-width="2" />
+            <line x1="60" y1="24" x2="60" y2="19" stroke="#333333" stroke-width="1.5" />
             <!-- Candle Glow Aura -->
-            <circle class="candle-glow" cx="60" cy="14" r="14" fill="url(#flameAura)"/>
+            <circle class="candle-glow" cx="60" cy="14" r="14" fill="url(#flameAura)" />
             <!-- Candle Flame -->
-            <path class="candle-flame" d="M60 7 C57 12 55 15 57 18 C59 20 61 20 63 18 C65 15 63 12 60 7 Z" fill="url(#flameGrad)"/>
+            <path class="candle-flame" d="M60 7 C57 12 55 15 57 18 C59 20 61 20 63 18 C65 15 63 12 60 7 Z"
+              fill="url(#flameGrad)" />
           </svg>
           <div class="candle-smoke" aria-hidden="true">
             <svg viewBox="0 0 20 40" fill="none" width="100%" height="100%">
-              <path d="M10 38 Q5 26 12 18 T10 2" stroke="rgba(255,255,255,0.7)" stroke-width="2" stroke-linecap="round"/>
+              <path d="M10 38 Q5 26 12 18 T10 2" stroke="rgba(255,255,255,0.7)" stroke-width="2"
+                stroke-linecap="round" />
             </svg>
           </div>
         </div>
@@ -1518,11 +1911,12 @@
         <div class="wish-hint" id="wishHintText">Tap the candle to make a secret wish ✨</div>
 
         <h2 class="script-title" id="birthdayTitle">Happy Birthday, <span class="highlight">Sejal</span> 🎂</h2>
-        
+
         <div class="romantic-date" id="birthdayDateDisplay">1st December</div>
 
         <p class="body-romantic" id="birthdayMessage">
-          Today is all about celebrating the most wonderful human being I know. Sejal, you bring a quiet warmth, so much laughter, and pure happiness into my world every single day.
+          Today is all about celebrating the most wonderful human being I know. Sejal, you bring a quiet warmth, so much
+          laughter, and pure happiness into my world every single day.
         </p>
 
         <div>
@@ -1537,14 +1931,14 @@
 
 
     <!-- =======================================================================
-         NEW SECTION: SEJAL'S OFFICIAL WORLD ATLAS 🌍
+         SECTION: SEJAL'S OFFICIAL WORLD ATLAS 🌍
          ======================================================================= -->
     <section class="screen-section" id="atlasScreen">
       <div class="glass-card atlas-card">
         <span class="badge-pill" id="atlasBadge">Special Edition</span>
 
-        <h2 class="script-title" id="atlasTitle" style="font-size: clamp(2.3rem, 7vw, 3.6rem);">
-          Sejal's Official World Atlas 🌍
+        <h2 class="script-title" id="atlasTitle" style="font-size: clamp(2.1rem, 6.8vw, 3.6rem);">
+          <span class="highlight">Sejal</span>'s Official World Atlas 🌍
         </h2>
 
         <div class="romantic-date" id="atlasSubtitle" style="font-size: 1.05rem; letter-spacing: 0.04em;">
@@ -1557,23 +1951,23 @@
 
         <!-- Cartoon Stylized Map Board -->
         <div class="atlas-map-board">
-          
+
           <!-- Decorative Background SVGs: Compass Rose & Sailing Boat -->
           <svg class="atlas-compass-bg" viewBox="0 0 100 100" fill="none">
-            <circle cx="50" cy="50" r="45" stroke="#f6c86e" stroke-width="2" stroke-dasharray="4 4"/>
-            <polygon points="50,10 56,44 50,50 44,44" fill="#ff4b72"/>
-            <polygon points="50,90 56,56 50,50 44,56" fill="#f6c86e"/>
-            <polygon points="10,50 44,44 50,50 44,56" fill="#ff7597"/>
-            <polygon points="90,50 56,44 50,50 56,56" fill="#ffe5a3"/>
-            <circle cx="50" cy="50" r="4" fill="#ffffff"/>
+            <circle cx="50" cy="50" r="45" stroke="#f6c86e" stroke-width="2" stroke-dasharray="4 4" />
+            <polygon points="50,10 56,44 50,50 44,44" fill="#ff4b72" />
+            <polygon points="50,90 56,56 50,50 44,56" fill="#f6c86e" />
+            <polygon points="10,50 44,44 50,50 44,56" fill="#ff7597" />
+            <polygon points="90,50 56,44 50,50 56,56" fill="#ffe5a3" />
+            <circle cx="50" cy="50" r="4" fill="#ffffff" />
             <text x="46" y="8" fill="#ffd166" font-size="9" font-weight="bold">N</text>
           </svg>
 
           <svg class="atlas-ship-bg" viewBox="0 0 60 40" fill="none">
-            <path d="M10 26 L50 26 L42 36 L18 36 Z" fill="#ffd166" opacity="0.8"/>
-            <path d="M28 6 L28 26 L44 26 Z" fill="#ffffff" opacity="0.9"/>
-            <path d="M26 12 L26 26 L14 26 Z" fill="#ff7597" opacity="0.9"/>
-            <path d="M5 34 Q20 38 35 34 T60 34" stroke="#ff4b72" stroke-width="2" fill="none"/>
+            <path d="M10 26 L50 26 L42 36 L18 36 Z" fill="#ffd166" opacity="0.8" />
+            <path d="M28 6 L28 26 L44 26 Z" fill="#ffffff" opacity="0.9" />
+            <path d="M26 12 L26 26 L14 26 Z" fill="#ff7597" opacity="0.9" />
+            <path d="M5 34 Q20 38 35 34 T60 34" stroke="#ff4b72" stroke-width="2" fill="none" />
           </svg>
 
           <!-- 4 Tappable Map Pin Stations -->
@@ -1589,13 +1983,203 @@
             Sejal's Geography Score: 0/4 🏆 (Perfect 10/10 as a girlfriend)
           </div>
           <div class="atlas-love-quote" id="atlasRewardQuote">
-            "Sejal, you can mix up every place on the map, but you've never once gotten me wrong. You're my favourite place in the world. 🧡"
+            "Sejal, you can mix up every place on the map, but you've never once gotten me wrong. You're my favourite
+            place in the world. 🧡"
           </div>
         </div>
 
         <div style="margin-top: 26px;">
-          <button class="btn-romantic btn-gold" id="btnAtlasToNotes">
-            <span>Continue to Love Notes</span>
+          <!-- Guides to the new Class 6/A Memory Section -->
+          <button class="btn-romantic btn-gold" id="btnAtlasToMemory">
+            <span>Next: Class 6/A Memory</span>
+            <span aria-hidden="true">🖤</span>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =======================================================================
+         CHANGE 2: NEW SECTION: "CLASS 6/A, THE DAY I LOST MY MIND 🖤"
+         ======================================================================= -->
+    <section class="screen-section" id="memoryScreen">
+      <div class="glass-card memory-card">
+        <span class="badge-pill" id="memoryBadge">Class 6/A Archive</span>
+
+        <h2 class="script-title" id="memoryTitle" style="font-size: clamp(2.1rem, 6.8vw, 3.6rem);">
+          Class 6/A, The Day I Lost My Mind 🖤
+        </h2>
+
+        <div class="romantic-date" id="memorySubtitle" style="font-size: 1.05rem; letter-spacing: 0.04em;">
+          A true story. I was 11 and already doomed.
+        </div>
+
+        <!-- Chalkboard Nostalgia Card -->
+        <div class="chalkboard-box" id="chalkboardTrigger" role="button" tabindex="0"
+          aria-label="Tap to reveal memory story lines">
+
+          <div class="chalk-doodle-tag">
+            <span>✏️ Class 6/A</span>
+          </div>
+
+          <!-- Classroom Illustration: Cute Desk Doodle + Sejal with Kajal Eyes & Ribbon Hairstyle -->
+          <svg class="classroom-illustration" viewBox="0 0 320 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="kajalGlow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#ffd166" />
+                <stop offset="100%" stop-color="transparent" />
+              </radialGradient>
+              <linearGradient id="ribbonGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#ff7597" />
+                <stop offset="100%" stop-color="#e83a67" />
+              </linearGradient>
+            </defs>
+
+            <!-- LEFT SIDE: Student Desk Doodle (My side of the classroom) -->
+            <g id="deskDoodle">
+              <!-- Wooden Desk Surface -->
+              <polygon points="30,110 95,110 85,128 20,128" fill="rgba(246, 200, 110, 0.15)" stroke="#f6c86e"
+                stroke-width="1.5" stroke-dasharray="3 3" />
+              <!-- Desk Legs -->
+              <line x1="28" y1="128" x2="28" y2="145" stroke="#f6c86e" stroke-width="1.5" />
+              <line x1="85" y1="128" x2="85" y2="145" stroke="#f6c86e" stroke-width="1.5" />
+              <!-- Open Notebook on Desk -->
+              <rect x="42" y="112" width="16" height="12" rx="1" fill="#fff" stroke="#ff7597" stroke-width="1" />
+              <rect x="58" y="112" width="16" height="12" rx="1" fill="#fff" stroke="#ff7597" stroke-width="1" />
+              <line x1="58" y1="112" x2="58" y2="124" stroke="#e83a67" stroke-width="1.2" />
+              <!-- Pencil -->
+              <line x1="38" y1="122" x2="35" y2="114" stroke="#ffd166" stroke-width="2" stroke-linecap="round" />
+              <!-- "6/A" etched on desk -->
+              <text x="75" y="122" fill="#ffd166" font-size="7" font-family="'Dancing Script', cursive">6/A</text>
+              <!-- Drifting Little Hearts towards Sejal -->
+              <path class="desk-heart-drift-1"
+                d="M60 102 C60 102 65 97 65 93 C65 90 62 88 60 90 C58 88 55 90 55 93 C55 97 60 102 60 102 Z"
+                fill="#ff4b72" />
+              <path class="desk-heart-drift-2"
+                d="M72 95 C72 95 76 91 76 88 C76 85 74 83 72 85 C70 83 68 85 68 88 C68 91 72 95 72 95 Z"
+                fill="#ffd166" />
+            </g>
+
+            <!-- RIGHT SIDE: Schoolgirl Sejal (Face, Kajal Eyes & Ribbon Hairstyle) -->
+            <g id="sejalClass6" transform="translate(165, 12)">
+              <!-- Hair Back Volume -->
+              <ellipse cx="65" cy="62" rx="42" ry="46" fill="#1f0817" />
+              <path d="M30 65 C30 95 50 115 65 115 C80 115 100 95 100 65" fill="#2d0b21" />
+
+              <!-- Cute High Ponytail Swept to Side -->
+              <path d="M82 45 C105 38 125 55 120 85 C115 70 100 60 85 58 Z" fill="#1f0817" />
+              <path d="M88 48 C108 42 120 62 118 82" stroke="#ff7597" stroke-width="1.5" stroke-linecap="round" />
+
+              <!-- Ribbon Bow on Ponytail -->
+              <g id="ribbonBow" transform="translate(82, 45)">
+                <!-- Left loop -->
+                <path d="M0 0 C-10 -8 -12 -1 -2 3 Z" fill="url(#ribbonGrad)" />
+                <!-- Right loop -->
+                <path d="M0 0 C10 -8 12 -1 2 3 Z" fill="url(#ribbonGrad)" />
+                <!-- Ribbon knot -->
+                <circle cx="0" cy="1" r="3.5" fill="#ffe5a3" />
+                <!-- Ribbon tails -->
+                <path d="M-2 4 Q-8 14 -12 20" stroke="#ff4b72" stroke-width="2" stroke-linecap="round" />
+                <path d="M2 4 Q6 14 10 22" stroke="#ff4b72" stroke-width="2" stroke-linecap="round" />
+              </g>
+
+              <!-- Neck & School Uniform Collar -->
+              <rect x="57" y="90" width="16" height="15" fill="#fbd2c2" />
+              <!-- Uniform Shirt / Collar -->
+              <path d="M44 102 L65 114 L86 102 L92 125 L38 125 Z" fill="#ffffff" />
+              <!-- Uniform Tie / Plaid Accent -->
+              <polygon points="65,108 61,125 69,125" fill="#e83a67" />
+
+              <!-- Soft Face Contour -->
+              <path d="M42 55 C42 80 50 95 65 95 C80 95 88 80 88 55 C88 35 78 30 65 30 C52 30 42 35 42 55 Z"
+                fill="#fde5d9" />
+
+              <!-- Cute Soft Pink Blushing Cheeks -->
+              <ellipse cx="48" cy="74" rx="6" ry="3.5" fill="rgba(255, 117, 151, 0.45)" />
+              <ellipse cx="82" cy="74" rx="6" ry="3.5" fill="rgba(255, 117, 151, 0.45)" />
+
+              <!-- Soft bangs framing the forehead -->
+              <path d="M42 45 Q52 52 65 42 Q78 52 88 45 Q75 32 65 32 Q55 32 42 45 Z" fill="#2d0b21" />
+              <path d="M42 48 Q40 68 45 74" stroke="#2d0b21" stroke-width="3" stroke-linecap="round" />
+              <path d="M88 48 Q90 68 85 74" stroke="#2d0b21" stroke-width="3" stroke-linecap="round" />
+
+              <!-- Petite Nose & Sweet Shy Smile -->
+              <circle cx="65" cy="71" r="1.2" fill="#d88a7c" />
+              <path d="M60 79 Q65 84 70 79" stroke="#d84368" stroke-width="2" stroke-linecap="round" fill="none" />
+
+              <!-- LEFT EYE: Bold Kajal (Kohl) Lined Eye with Lashes -->
+              <g class="kajal-eye-lid" transform="translate(52, 63)">
+                <ellipse cx="0" cy="0" rx="6.5" ry="4.2" fill="#ffffff" />
+                <circle cx="0.5" cy="0" r="3" fill="#2b111c" />
+                <circle cx="-0.5" cy="-1" r="1.1" fill="#ffffff" />
+                <!-- Bold Deep Black Kajal Lower and Upper Stroke -->
+                <path d="M-7.5 1 Q-1 5.5 7.5 1" stroke="#000000" stroke-width="2.2" stroke-linecap="round"
+                  fill="none" />
+                <path d="M-8 0 Q-1 -6 8 -0.5 L10.5 -2.5" stroke="#000000" stroke-width="2.6" stroke-linecap="round"
+                  fill="none" />
+              </g>
+
+              <!-- RIGHT EYE: Bold Kajal Lined Eye with Animated Sparkle Glint -->
+              <g class="kajal-eye-lid" transform="translate(77, 63)">
+                <ellipse cx="0" cy="0" rx="6.5" ry="4.2" fill="#ffffff" />
+                <circle cx="0.5" cy="0" r="3" fill="#2b111c" />
+                <circle cx="-0.5" cy="-1" r="1.1" fill="#ffffff" />
+                <!-- Bold Deep Black Kajal Lower and Upper Winged Stroke -->
+                <path d="M-7.5 1 Q-1 5.5 7.5 1" stroke="#000000" stroke-width="2.2" stroke-linecap="round"
+                  fill="none" />
+                <path d="M-8 0 Q-1 -6 8 -0.5 L11 -3" stroke="#000000" stroke-width="2.6" stroke-linecap="round"
+                  fill="none" />
+              </g>
+
+              <!-- Sparkle Glint on the Kajal Wing -->
+              <g class="kajal-glint" transform="translate(88, 59)">
+                <polygon points="0,-4 1,-1 4,0 1,1 0,4 -1,1 -4,0 -1,-1" fill="#ffe5a3" />
+                <circle cx="0" cy="0" r="1.5" fill="#ffffff" />
+              </g>
+
+              <!-- Cute Eyebrows -->
+              <path d="M45 56 Q52 52 59 55" stroke="#1f0817" stroke-width="1.8" stroke-linecap="round" fill="none" />
+              <path d="M70 55 Q78 52 85 56" stroke="#1f0817" stroke-width="1.8" stroke-linecap="round" fill="none" />
+            </g>
+          </svg>
+
+          <!-- Tap-To-Reveal Story Lines -->
+          <div class="story-lines-container" id="storyLinesContainer">
+            <div class="story-line-item revealed" id="storyLine-0">
+              <span>Class 6/A. An ordinary day.</span>
+            </div>
+            <div class="story-line-item" id="storyLine-1">
+              <span>Then you walked in. Kajal in your eyes. That hairstyle.</span>
+            </div>
+            <div class="story-line-item" id="storyLine-2">
+              <span>And just like that, I was gone. Completely mad. 🤯</span>
+            </div>
+            <div class="story-line-item line-highlight" id="storyLine-3">
+              <span>I didn't know it then, but I'd never recover.</span>
+            </div>
+          </div>
+
+          <div class="chalk-tap-hint" id="chalkTapHint">
+            <span>Tap anywhere on this board to continue the story 👇</span>
+          </div>
+
+        </div>
+
+        <!-- Closing Reveal Box (Years later...) -->
+        <div class="memory-closing-box" id="memoryClosingBox">
+          <div class="crush-stamp" id="memoryCrushStamp">
+            Crush Level: Lifetime 💘
+          </div>
+          <div class="memory-closing-quote" id="memoryClosingQuote">
+            "Years later, you still do it to me. Same kajal, same madness, just more love. ❤️"
+          </div>
+        </div>
+
+        <div style="margin-top: 26px;">
+          <!-- Leads smoothly to Love Notes -->
+          <button class="btn-romantic btn-gold" id="btnMemoryToNotes">
+            <span>Open Love Notes</span>
             <span aria-hidden="true">💌</span>
           </button>
         </div>
@@ -1605,7 +2189,7 @@
 
 
     <!-- =======================================================================
-         SECTION 3: LOVE NOTES (Flipping Envelope Cards)
+         SECTION 4: LOVE NOTES (Flipping Envelope Cards)
          ======================================================================= -->
     <section class="screen-section" id="notesScreen">
       <div class="notes-header">
@@ -1618,8 +2202,9 @@
 
       <!-- 3D Interactive Card Deck -->
       <div class="note-deck-wrapper">
-        <div class="note-card-3d" id="activeNoteCard" role="button" tabindex="0" aria-label="Tap to open or flip this love note">
-          
+        <div class="note-card-3d" id="activeNoteCard" role="button" tabindex="0"
+          aria-label="Tap to open or flip this love note">
+
           <!-- FRONT FACE: Sealed Envelope with Wax Stamp -->
           <div class="card-face card-front">
             <div>
@@ -1630,7 +2215,8 @@
             <div>
               <div class="envelope-seal">
                 <svg viewBox="0 0 24 24">
-                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                  <path
+                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
                 </svg>
               </div>
               <div class="envelope-prompt">Tap to Unseal Note</div>
@@ -1649,7 +2235,8 @@
             </div>
 
             <div class="note-body" id="cardBackBody">
-              The way your eyes crinkle when something is genuinely funny to you—it's my favourite sight in the whole world.
+              The way your eyes crinkle when something is genuinely funny to you—it's my favourite sight in the whole
+              world.
             </div>
 
             <div class="note-footer">
@@ -1664,7 +2251,8 @@
       <!-- Deck Navigation Arrows and Counter -->
       <div class="deck-controls">
         <button class="nav-arrow-btn" id="prevNoteBtn" aria-label="Previous note">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
             <polyline points="15 18 9 12 15 6"></polyline>
           </svg>
         </button>
@@ -1672,7 +2260,8 @@
         <span class="deck-counter" id="deckCounter">Note 1 of 7</span>
 
         <button class="nav-arrow-btn" id="nextNoteBtn" aria-label="Next note">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
             <polyline points="9 18 15 12 9 6"></polyline>
           </svg>
         </button>
@@ -1693,13 +2282,13 @@
 
 
     <!-- =======================================================================
-         SECTION 4: OUR YEAR MOMENT & ADORE JAR
+         SECTION 5: OUR YEAR MOMENT & ADORE JAR
          ======================================================================= -->
     <section class="screen-section" id="momentScreen">
       <div class="glass-card adore-card">
         <span class="badge-pill" id="momentBadge">A Special Reminder</span>
 
-        <h2 class="script-title" style="font-size: clamp(2.2rem, 6.5vw, 3.4rem);" id="momentTitle">
+        <h2 class="script-title" style="font-size: clamp(2.1rem, 6.5vw, 3.4rem);" id="momentTitle">
           Another year of you, and I'm the luckiest.
         </h2>
 
@@ -1715,32 +2304,35 @@
         </div>
 
         <!-- Interactive Wishing Jar -->
-        <div class="adore-jar-wrapper" id="adoreJarTrigger" role="button" tabindex="0" aria-label="Tap to reveal another reason I adore you">
+        <div class="adore-jar-wrapper" id="adoreJarTrigger" role="button" tabindex="0"
+          aria-label="Tap to reveal another reason I adore you">
           <svg class="adore-jar-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <linearGradient id="jarGlass" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="rgba(255,255,255,0.4)"/>
-                <stop offset="100%" stop-color="rgba(255,75,114,0.15)"/>
+                <stop offset="0%" stop-color="rgba(255,255,255,0.4)" />
+                <stop offset="100%" stop-color="rgba(255,75,114,0.15)" />
               </linearGradient>
             </defs>
             <!-- Jar Cork -->
-            <rect x="36" y="8" width="28" height="10" rx="3" fill="#d29661"/>
-            <rect x="34" y="16" width="32" height="6" rx="2" fill="#c3834b"/>
+            <rect x="36" y="8" width="28" height="10" rx="3" fill="#d29661" />
+            <rect x="34" y="16" width="32" height="6" rx="2" fill="#c3834b" />
             <!-- Glass Body -->
-            <path d="M30 22 C20 22 15 35 15 50 C15 78 22 92 50 92 C78 92 85 78 85 50 C85 35 80 22 70 22 Z" 
-                  fill="url(#jarGlass)" stroke="rgba(246,200,110,0.5)" stroke-width="2"/>
+            <path d="M30 22 C20 22 15 35 15 50 C15 78 22 92 50 92 C78 92 85 78 85 50 C85 35 80 22 70 22 Z"
+              fill="url(#jarGlass)" stroke="rgba(246,200,110,0.5)" stroke-width="2" />
             <!-- Highlights -->
-            <path d="M22 45 C22 35 26 28 34 26" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+            <path d="M22 45 C22 35 26 28 34 26" stroke="#ffffff" stroke-width="2" stroke-linecap="round" />
             <!-- Floating Hearts Inside Jar -->
-            <circle cx="50" cy="55" r="3" fill="#ff4b72"/>
-            <circle cx="62" cy="68" r="2.5" fill="#ffd152"/>
-            <circle cx="38" cy="70" r="3" fill="#ffffff"/>
-            <circle cx="48" cy="80" r="2" fill="#ff7597"/>
-            <path d="M50 45 C50 45 56 40 56 36 C56 33 53 31 50 34 C47 31 44 33 44 36 C44 40 50 45 50 45 Z" fill="#f6c86e"/>
+            <circle cx="50" cy="55" r="3" fill="#ff4b72" />
+            <circle cx="62" cy="68" r="2.5" fill="#ffd152" />
+            <circle cx="38" cy="70" r="3" fill="#ffffff" />
+            <circle cx="48" cy="80" r="2" fill="#ff7597" />
+            <path d="M50 45 C50 45 56 40 56 36 C56 33 53 31 50 34 C47 31 44 33 44 36 C44 40 50 45 50 45 Z"
+              fill="#f6c86e" />
           </svg>
         </div>
 
-        <div style="font-size: 0.85rem; color: var(--gold-light); margin-bottom: 12px; font-weight: 500;" id="jarPromptText">
+        <div style="font-size: 0.85rem; color: var(--gold-light); margin-bottom: 12px; font-weight: 500;"
+          id="jarPromptText">
           Tap the wishing jar for reasons I adore you:
         </div>
 
@@ -1768,10 +2360,10 @@
 
 
     <!-- =======================================================================
-         SECTION 5: FINAL SURPRISE (Drawn SVG Heart & Heart of Hearts)
+         SECTION 6: FINAL SURPRISE (Drawn SVG Heart & Heart of Hearts)
          ======================================================================= -->
     <section class="screen-section" id="finalScreen">
-      
+
       <!-- Gatekeeper trigger if reached directly -->
       <div class="final-gate" id="finalGate">
         <div class="glass-card">
@@ -1794,18 +2386,17 @@
 
           <!-- Big Heart of Hearts Masterpiece -->
           <div class="heart-constellation-container">
-            
+
             <!-- SVG with Drawn-on Stroke Animation -->
             <svg class="drawn-heart-svg" viewBox="0 0 300 280">
               <defs>
                 <linearGradient id="heartGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#ffd166"/>
-                  <stop offset="50%" stop-color="#ff4b72"/>
-                  <stop offset="100%" stop-color="#ff8fab"/>
+                  <stop offset="0%" stop-color="#ffd166" />
+                  <stop offset="50%" stop-color="#ff4b72" />
+                  <stop offset="100%" stop-color="#ff8fab" />
                 </linearGradient>
               </defs>
-              <path class="drawn-heart-path" 
-                    d="M 150,70 
+              <path class="drawn-heart-path" d="M 150,70 
                        C 150,35 185,15 220,35 
                        C 260,60 270,110 210,170 
                        L 150,235 
@@ -1828,7 +2419,7 @@
           </div>
 
           <!-- Final Grand Emotional Birthday Message -->
-          <h2 class="script-title" style="font-size: clamp(2.4rem, 7.5vw, 3.8rem); margin-bottom: 8px;" id="finalTitle">
+          <h2 class="script-title" style="font-size: clamp(2.3rem, 7.5vw, 3.8rem); margin-bottom: 8px;" id="finalTitle">
             I love you, <span class="highlight">Sejal</span>.
           </h2>
 
@@ -1837,15 +2428,18 @@
           </div>
 
           <p class="body-romantic" id="finalLetter" style="font-size: 1.08rem; max-width: 540px;">
-            Thank you for being my constant comfort, my favourite laugh, and my greatest adventure. May this upcoming year bring you every bit of the peace, success, and pure joy that you bring into my life every single day.
+            Thank you for being my constant comfort, my favourite laugh, and my greatest adventure. May this upcoming
+            year bring you every bit of the peace, success, and pure joy that you bring into my life every single day.
           </p>
 
           <!-- Bonus Affectionate P.S. from Atlas Joke -->
-          <p class="body-romantic" id="finalPs" style="font-size: 1rem; color: var(--gold-light); font-weight: 500; margin-top: -14px; margin-bottom: 22px;">
+          <p class="body-romantic" id="finalPs"
+            style="font-size: 1rem; color: var(--gold-light); font-weight: 500; margin-top: -14px; margin-bottom: 22px;">
             P.S. Assam is in India. You're welcome. 😄
           </p>
 
-          <div style="font-family: var(--font-cursive); font-size: 2rem; color: var(--gold-light); margin-bottom: 24px;" id="finalSignature">
+          <div style="font-family: var(--font-cursive); font-size: 2rem; color: var(--gold-light); margin-bottom: 24px;"
+            id="finalSignature">
             Yours, always & forever
           </div>
 
@@ -1881,18 +2475,18 @@
     /**
      * =========================================================================
      * EASILY EDITABLE CONFIGURATION
-     * Personalize all names, dates, text, atlas jokes, and love notes right here!
+     * Personalize all names, dates, text, atlas jokes, memories, and love notes right here!
      * =========================================================================
      */
     const CONFIG = {
       // Personal Details
       recipientName: "Sejal",
       birthdayDate: "1st December",
-      
+
       // Optional Custom Music URL
       // Tip: Put an mp3 in the same folder (e.g. "our-song.mp3") or paste an audio link here.
       // If left empty (""), a soothing romantic music box melody synthesizes natively!
-      musicUrl: "", 
+      musicUrl: "",
 
       // Section 1: Opening Screen
       opening: {
@@ -1956,7 +2550,23 @@
         rewardQuote: "Sejal, you can mix up every place on the map, but you've never once gotten me wrong. You're my favourite place in the world. 🧡"
       },
 
-      // Section 3: Love Notes (Easily edit, reorder or add more notes!)
+      // CHANGE 2: Class 6/A Memory ("The Day I Lost My Mind")
+      memory: {
+        badge: "Class 6/A Archive",
+        title: "Class 6/A, The Day I Lost My Mind 🖤",
+        subtitle: "A true story. I was 11 and already doomed.",
+        lines: [
+          "Class 6/A. An ordinary day.",
+          "Then you walked in. Kajal in your eyes. That hairstyle.",
+          "And just like that, I was gone. Completely mad. 🤯",
+          "I didn't know it then, but I'd never recover."
+        ],
+        closing: "Years later, you still do it to me. Same kajal, same madness, just more love. ❤️",
+        stamp: "Crush Level: Lifetime 💘",
+        tapHint: "Tap anywhere on this board to continue the story 👇"
+      },
+
+      // Section 4: Love Notes (Easily edit, reorder or add more notes!)
       loveNotes: [
         {
           category: "Your Smile",
@@ -1995,7 +2605,7 @@
         }
       ],
 
-      // Section 4: Our Year Moment & Reasons Jar
+      // Section 5: Our Year Moment & Reasons Jar
       moment: {
         badge: "A Special Reminder",
         title: "Another year of you, and I'm the luckiest.",
@@ -2012,7 +2622,7 @@
         ]
       },
 
-      // Section 5: Final Surprise
+      // Section 6: Final Surprise
       final: {
         badge: "Forever & Always",
         centerName: "Sejal",
@@ -2037,6 +2647,7 @@
       initConfetti();
       initInteractiveCandle();
       initAtlasSection();
+      initMemorySection();
       initLoveNotesDeck();
       initAdoreJar();
       initHeartConstellation();
@@ -2064,11 +2675,19 @@
 
       // Atlas Section
       document.getElementById("atlasBadge").textContent = CONFIG.atlas.badge;
-      document.getElementById("atlasTitle").innerHTML = `${CONFIG.atlas.title}`;
+      document.getElementById("atlasTitle").innerHTML = `<span class="highlight">${CONFIG.recipientName}</span>'s Official World Atlas 🌍`;
       document.getElementById("atlasSubtitle").textContent = CONFIG.atlas.subtitle;
       document.getElementById("atlasInstruction").textContent = CONFIG.atlas.instruction;
       document.getElementById("atlasScoreBadge").textContent = CONFIG.atlas.scoreBadge;
       document.getElementById("atlasRewardQuote").textContent = `"${CONFIG.atlas.rewardQuote}"`;
+
+      // Memory Section
+      document.getElementById("memoryBadge").textContent = CONFIG.memory.badge;
+      document.getElementById("memoryTitle").innerHTML = CONFIG.memory.title;
+      document.getElementById("memorySubtitle").textContent = CONFIG.memory.subtitle;
+      document.getElementById("memoryCrushStamp").textContent = CONFIG.memory.stamp;
+      document.getElementById("memoryClosingQuote").textContent = `"${CONFIG.memory.closing}"`;
+      document.getElementById("chalkTapHint").innerHTML = `<span>${CONFIG.memory.tapHint}</span>`;
 
       // Moment Screen
       document.getElementById("momentBadge").textContent = CONFIG.moment.badge;
@@ -2465,7 +3084,7 @@
 
     /**
      * =========================================================================
-     * NEW: SEJAL'S OFFICIAL WORLD ATLAS 🌍 LOGIC
+     * SEJAL'S OFFICIAL WORLD ATLAS 🌍 LOGIC
      * =========================================================================
      */
     const tappedPinsSet = new Set();
@@ -2501,12 +3120,10 @@
     }
 
     function handlePinTap(stationEl, pinId) {
-      const wasAlreadyTapped = stationEl.classList.contains("tapped");
       stationEl.classList.add("tapped");
       tappedPinsSet.add(pinId);
 
       const rect = stationEl.getBoundingClientRect();
-      // Mini sparkle burst for each pin tap
       fireConfetti(rect.left + rect.width / 2, rect.top + 20, 20);
 
       if (navigator.vibrate) {
@@ -2519,7 +3136,6 @@
         if (!rewardBox.classList.contains("unlocked")) {
           rewardBox.classList.add("unlocked");
 
-          // Grand celebratory burst for unlocking the atlas reward
           setTimeout(() => {
             const boxRect = rewardBox.getBoundingClientRect();
             fireConfetti(window.innerWidth / 2, boxRect.top + boxRect.height / 2, 85);
@@ -2531,7 +3147,52 @@
 
     /**
      * =========================================================================
-     * SECTION 3: INTERACTIVE LOVE NOTES DECK
+     * CHANGE 2: CLASS 6/A MEMORY SECTION LOGIC ("The Day I Lost My Mind")
+     * Tap to reveal story lines one by one with a little heart pop
+     * =========================================================================
+     */
+    let revealedLineCount = 1;
+
+    function initMemorySection() {
+      const chalkboard = document.getElementById("chalkboardTrigger");
+      const closingBox = document.getElementById("memoryClosingBox");
+      const tapHint = document.getElementById("chalkTapHint");
+
+      chalkboard.addEventListener("click", () => {
+        if (revealedLineCount < CONFIG.memory.lines.length) {
+          const nextItem = document.getElementById(`storyLine-${revealedLineCount}`);
+          if (nextItem) {
+            nextItem.classList.add("revealed");
+            revealedLineCount++;
+
+            // Mini sparkle pop on tap
+            const rect = nextItem.getBoundingClientRect();
+            fireConfetti(rect.left + rect.width / 2, rect.top + rect.height / 2, 16);
+
+            if (navigator.vibrate) {
+              navigator.vibrate([35, 45]);
+            }
+          }
+
+          // If all 4 lines are now revealed, unlock the closing heartfelt message!
+          if (revealedLineCount === CONFIG.memory.lines.length) {
+            tapHint.innerHTML = "<span>All memories unlocked ❤️</span>";
+            if (!closingBox.classList.contains("unlocked")) {
+              closingBox.classList.add("unlocked");
+              setTimeout(() => {
+                const boxRect = closingBox.getBoundingClientRect();
+                fireConfetti(window.innerWidth / 2, boxRect.top + 20, 70);
+              }, 300);
+            }
+          }
+        }
+      });
+    }
+
+
+    /**
+     * =========================================================================
+     * SECTION 4: INTERACTIVE LOVE NOTES DECK
      * =========================================================================
      */
     let currentNoteIndex = 0;
@@ -2649,7 +3310,7 @@
 
     /**
      * =========================================================================
-     * SECTION 4: ADORE JAR / REASONS WHY I LOVE YOU
+     * SECTION 5: ADORE JAR / REASONS WHY I LOVE YOU
      * =========================================================================
      */
     let currentReasonIndex = 0;
@@ -2684,7 +3345,7 @@
 
     /**
      * =========================================================================
-     * SECTION 5: FINAL SURPRISE & BIG HEART CONSTELLATION
+     * SECTION 6: FINAL SURPRISE & BIG HEART CONSTELLATION
      * =========================================================================
      */
     function initHeartConstellation() {
@@ -2696,14 +3357,11 @@
       const centerY = height / 2 - 10;
 
       // Parametric Heart Formula
-      // x = 16 * sin^3(t)
-      // y = -(13 * cos(t) - 5 * cos(2t) - 2 * cos(3t) - cos(4t))
       for (let i = 0; i < totalHearts; i++) {
         const t = (i / totalHearts) * Math.PI * 2;
         const xRaw = 16 * Math.pow(Math.sin(t), 3);
-        const yRaw = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+        const yRaw = -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
 
-        // Scale to fit container
         const scale = 7.2;
         const x = centerX + xRaw * scale;
         const y = centerY + yRaw * scale;
@@ -2765,7 +3423,7 @@
 
     /**
      * =========================================================================
-     * SECTION OBSERVER & ACTIONS NAVIGATION
+     * SECTION OBSERVER & ACTIONS NAVIGATION (7 Sections)
      * =========================================================================
      */
     function initSectionObserver() {
@@ -2804,7 +3462,7 @@
       function startExperience(e) {
         const rect = btnOpen.getBoundingClientRect();
         fireConfetti(rect.left + rect.width / 2, rect.top, 90);
-        
+
         // Auto trigger pleasant music on first action
         toggleMusic(true);
 
@@ -2820,23 +3478,28 @@
         document.getElementById("atlasScreen").scrollIntoView({ behavior: "smooth" });
       });
 
-      // 3. Atlas Screen -> Love Notes button
-      document.getElementById("btnAtlasToNotes").addEventListener("click", () => {
+      // 3. Atlas Screen -> Memory button
+      document.getElementById("btnAtlasToMemory").addEventListener("click", () => {
+        document.getElementById("memoryScreen").scrollIntoView({ behavior: "smooth" });
+      });
+
+      // 4. Memory Screen -> Love Notes button
+      document.getElementById("btnMemoryToNotes").addEventListener("click", () => {
         document.getElementById("notesScreen").scrollIntoView({ behavior: "smooth" });
       });
 
-      // 4. Notes Screen -> Moment button
+      // 5. Notes Screen -> Moment button
       document.getElementById("btnToMoment").addEventListener("click", () => {
         document.getElementById("momentScreen").scrollIntoView({ behavior: "smooth" });
       });
 
-      // 5. Moment Screen -> One Last Thing button
+      // 6. Moment Screen -> One Last Thing button
       document.getElementById("btnToOneLastThing").addEventListener("click", () => {
         document.getElementById("finalScreen").scrollIntoView({ behavior: "smooth" });
         revealFinalStage();
       });
 
-      // 6. Final Gate unlock button
+      // 7. Final Gate unlock button
       document.getElementById("btnUnlockFinal").addEventListener("click", () => {
         revealFinalStage();
       });
@@ -2855,7 +3518,7 @@
         }, 300);
       }
 
-      // 7. Send Kiss button
+      // 8. Send Kiss button
       document.getElementById("btnSendKiss").addEventListener("click", (e) => {
         const rect = e.target.getBoundingClientRect();
         for (let i = 0; i < 7; i++) {
@@ -2873,11 +3536,12 @@
         }
       });
 
-      // 8. Replay button
+      // 9. Replay button
       document.getElementById("btnReplay").addEventListener("click", () => {
         window.scrollTo({ top: 0, behavior: "smooth" });
       });
     }
   </script>
 </body>
+
 </html>
