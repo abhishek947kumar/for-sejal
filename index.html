@@ -1,0 +1,2883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <meta name="theme-color" content="#250718">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Happy Birthday, Sejal ❤️</title>
+
+  <!-- Google Fonts: Romantic Script, Editorial Serif & Modern Clean Body -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Great+Vibes&family=Playfair+Display:ital,wght@0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       ROMANTIC PALETTE & DESIGN TOKENS
+       Palette: Deep Wine, Rose, Blush Pink, and Soft Gold
+       ========================================================================== */
+    :root {
+      --bg-dark: #19020f;
+      --bg-wine: #2d081f;
+      --bg-wine-deep: #14020e;
+      --rose-primary: #ff4b72;
+      --rose-light: #ff7597;
+      --rose-glow: rgba(255, 75, 114, 0.45);
+      --blush-pink: #fce7f0;
+      --blush-soft: #f8c8dc;
+      --gold-primary: #f6c86e;
+      --gold-light: #ffe5a3;
+      --gold-glow: rgba(246, 200, 110, 0.45);
+      --glass-bg: rgba(255, 255, 255, 0.08);
+      --glass-border: rgba(255, 225, 235, 0.18);
+      --glass-highlight: rgba(255, 255, 255, 0.25);
+      --glass-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+      --text-white: #ffffff;
+      --text-muted: rgba(255, 240, 246, 0.78);
+      --font-cursive: 'Great Vibes', 'Dancing Script', cursive;
+      --font-handwriting: 'Dancing Script', cursive;
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --ease-romantic: cubic-bezier(0.25, 1, 0.5, 1);
+      --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg-dark);
+      color: var(--text-white);
+      font-family: var(--font-sans);
+      font-size: 16px;
+      overflow-x: hidden;
+      min-height: 100%;
+    }
+
+    body {
+      background: radial-gradient(circle at 50% 15%, #420f2e 0%, #26071a 45%, #14020e 100%);
+      background-attachment: fixed;
+      color: var(--text-white);
+      min-height: 100vh;
+      min-height: 100dvh;
+      overflow-x: hidden;
+      position: relative;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    /* Ambient glowing background aura */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -15%;
+      left: 10%;
+      width: 80vw;
+      height: 80vw;
+      max-width: 600px;
+      max-height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(232, 74, 115, 0.22) 0%, rgba(246, 200, 110, 0.08) 50%, transparent 70%);
+      filter: blur(60px);
+      pointer-events: none;
+      z-index: 0;
+      animation: auraFloat 12s ease-in-out infinite alternate;
+    }
+
+    @keyframes auraFloat {
+      0% { transform: translate(0, 0) scale(1); opacity: 0.7; }
+      100% { transform: translate(8vw, 12vh) scale(1.15); opacity: 0.95; }
+    }
+
+    /* ==========================================================================
+       CANVAS LAYERS (Particles & Confetti)
+       ========================================================================== */
+    #bgCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    #confettiCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    /* ==========================================================================
+       TOP PERSISTENT NAVIGATION & AUDIO CONTROLLER
+       ========================================================================== */
+    .top-nav {
+      position: fixed;
+      top: max(16px, env(safe-area-inset-top));
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+      z-index: 100;
+      pointer-events: none;
+    }
+
+    .nav-brand {
+      pointer-events: auto;
+      font-family: var(--font-cursive);
+      font-size: 1.6rem;
+      color: var(--gold-light);
+      text-shadow: 0 0 12px var(--gold-glow);
+      text-decoration: none;
+      transition: transform 0.3s ease;
+    }
+
+    .nav-brand:hover {
+      transform: scale(1.05);
+    }
+
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      pointer-events: auto;
+    }
+
+    /* Music Toggle Pill */
+    .music-btn {
+      background: rgba(38, 7, 26, 0.75);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--blush-pink);
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+      transition: all 0.3s var(--ease-romantic);
+      min-height: 44px;
+    }
+
+    .music-btn:hover {
+      background: rgba(66, 16, 46, 0.9);
+      border-color: var(--rose-light);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px var(--rose-glow);
+    }
+
+    .music-waves {
+      display: flex;
+      align-items: flex-end;
+      gap: 2.5px;
+      height: 14px;
+    }
+
+    .music-waves span {
+      width: 2.5px;
+      background: var(--gold-primary);
+      border-radius: 2px;
+      height: 3px;
+      transition: height 0.2s ease;
+    }
+
+    .music-btn.playing .music-waves span:nth-child(1) {
+      animation: soundBar 0.9s ease-in-out infinite alternate;
+    }
+    .music-btn.playing .music-waves span:nth-child(2) {
+      animation: soundBar 0.7s ease-in-out 0.2s infinite alternate;
+    }
+    .music-btn.playing .music-waves span:nth-child(3) {
+      animation: soundBar 1.1s ease-in-out 0.4s infinite alternate;
+    }
+
+    @keyframes soundBar {
+      0% { height: 3px; }
+      100% { height: 14px; }
+    }
+
+    /* Chapter Indicator Dots (Desktop) */
+    .chapter-indicator {
+      position: fixed;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 90;
+      background: rgba(30, 4, 20, 0.5);
+      padding: 10px 6px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .chapter-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      cursor: pointer;
+      transition: all 0.3s var(--ease-romantic);
+      border: none;
+      padding: 0;
+    }
+
+    .chapter-dot.active {
+      height: 22px;
+      border-radius: 12px;
+      background: var(--rose-primary);
+      box-shadow: 0 0 10px var(--rose-glow);
+    }
+
+    /* ==========================================================================
+       MAIN APP CONTAINER & SECTION LAYOUT
+       ========================================================================== */
+    main {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 20px 80px 20px;
+    }
+
+    .screen-section {
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 60px 0;
+      position: relative;
+    }
+
+    /* Glass Card Standard */
+    .glass-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 28px;
+      box-shadow: var(--glass-shadow);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      padding: 34px 26px;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .glass-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--glass-highlight), transparent);
+    }
+
+    /* Typography */
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(246, 200, 110, 0.12);
+      border: 1px solid rgba(246, 200, 110, 0.35);
+      color: var(--gold-light);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 18px;
+      box-shadow: 0 2px 10px rgba(246, 200, 110, 0.1);
+    }
+
+    .script-title {
+      font-family: var(--font-cursive);
+      font-size: clamp(2.8rem, 8vw, 4.4rem);
+      line-height: 1.15;
+      color: var(--text-white);
+      text-shadow: 0 4px 20px rgba(255, 75, 114, 0.4);
+      margin-bottom: 12px;
+    }
+
+    /* Iridescent Shimmer on Name */
+    .script-title .highlight {
+      background: linear-gradient(120deg, #ffe5a3 0%, #ff8fab 35%, #ffd166 70%, #ffe5a3 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: none;
+      filter: drop-shadow(0 0 16px rgba(246, 200, 110, 0.5));
+      animation: shineText 5s linear infinite;
+    }
+
+    @keyframes shineText {
+      0% { background-position: 0% center; }
+      100% { background-position: 200% center; }
+    }
+
+    .romantic-date {
+      font-family: var(--font-serif);
+      font-size: clamp(1.15rem, 3.8vw, 1.45rem);
+      color: var(--blush-soft);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .romantic-date::before,
+    .romantic-date::after {
+      content: '';
+      height: 1px;
+      width: 28px;
+      background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+    }
+
+    .body-romantic {
+      color: var(--text-muted);
+      font-size: clamp(0.98rem, 2.5vw, 1.12rem);
+      line-height: 1.7;
+      max-width: 520px;
+      margin: 0 auto 28px auto;
+      font-weight: 400;
+    }
+
+    /* Buttons */
+    .btn-romantic {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #ff4b72 0%, #d4224c 100%);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 14px 32px;
+      border-radius: 999px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(255, 75, 114, 0.45);
+      transition: all 0.3s var(--ease-bounce);
+      text-decoration: none;
+      min-height: 48px;
+      min-width: 170px;
+      user-select: none;
+    }
+
+    .btn-romantic:hover, .btn-romantic:focus-visible {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 12px 32px rgba(255, 75, 114, 0.6);
+      background: linear-gradient(135deg, #ff6385 0%, #e62855 100%);
+      outline: none;
+    }
+
+    .btn-romantic:active {
+      transform: translateY(1px) scale(0.98);
+    }
+
+    .btn-gold {
+      background: linear-gradient(135deg, #f6c86e 0%, #dca23b 100%);
+      color: #2b081e;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow: 0 8px 25px rgba(246, 200, 110, 0.4);
+      font-weight: 700;
+    }
+
+    .btn-gold:hover {
+      background: linear-gradient(135deg, #ffe08a 0%, #e5ae4c 100%);
+      box-shadow: 0 12px 30px rgba(246, 200, 110, 0.6);
+    }
+
+    /* ==========================================================================
+       SECTION 1: OPENING HERO (Tap to open)
+       ========================================================================== */
+    .hero-heart-container {
+      position: relative;
+      width: 140px;
+      height: 140px;
+      margin: 0 auto 30px auto;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Pulsing heart animation */
+    .heart-pulse-glow {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 75, 114, 0.4) 0%, transparent 70%);
+      animation: pulseRings 2.2s infinite ease-out;
+    }
+
+    .heart-svg-wrapper {
+      position: relative;
+      z-index: 2;
+      width: 90px;
+      height: 90px;
+      filter: drop-shadow(0 0 18px rgba(255, 75, 114, 0.65));
+      animation: heartbeat 1.6s ease-in-out infinite;
+      transition: transform 0.3s ease;
+    }
+
+    .hero-heart-container:hover .heart-svg-wrapper {
+      transform: scale(1.1);
+    }
+
+    @keyframes heartbeat {
+      0% { transform: scale(1); }
+      14% { transform: scale(1.18); }
+      28% { transform: scale(1); }
+      42% { transform: scale(1.14); }
+      70% { transform: scale(1); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes pulseRings {
+      0% { transform: scale(0.8); opacity: 0.9; }
+      100% { transform: scale(2); opacity: 0; }
+    }
+
+    .heart-tap-hint {
+      display: block;
+      font-size: 0.82rem;
+      letter-spacing: 0.05em;
+      color: var(--blush-soft);
+      margin-top: 10px;
+      animation: breatheText 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes breatheText {
+      0% { opacity: 0.6; transform: translateY(0); }
+      100% { opacity: 1; transform: translateY(-3px); }
+    }
+
+    /* ==========================================================================
+       SECTION 2: BIRTHDAY CELEBRATION & INTERACTIVE CANDLE CAKE
+       ========================================================================== */
+    .cake-container {
+      margin: 15px auto 25px auto;
+      display: inline-block;
+      cursor: pointer;
+      position: relative;
+      touch-action: manipulation;
+    }
+
+    .cake-svg {
+      width: 140px;
+      height: 140px;
+      filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3));
+      transition: transform 0.3s var(--ease-bounce);
+    }
+
+    .cake-container:hover .cake-svg {
+      transform: scale(1.05);
+    }
+
+    /* Candle flame animation */
+    .candle-flame {
+      transform-origin: center bottom;
+      animation: flickerFlame 1.2s infinite alternate ease-in-out;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .candle-glow {
+      transform-origin: center center;
+      animation: pulseGlow 1.2s infinite alternate ease-in-out;
+      transition: opacity 0.4s ease;
+    }
+
+    @keyframes flickerFlame {
+      0% { transform: scale(1) rotate(-2deg); }
+      50% { transform: scale(1.08, 0.95) rotate(3deg); }
+      100% { transform: scale(0.95, 1.05) rotate(-1deg); }
+    }
+
+    @keyframes pulseGlow {
+      0% { opacity: 0.5; transform: scale(0.9); }
+      100% { opacity: 0.9; transform: scale(1.2); }
+    }
+
+    .cake-container.blown .candle-flame,
+    .cake-container.blown .candle-glow {
+      opacity: 0;
+      transform: scale(0);
+    }
+
+    .candle-smoke {
+      position: absolute;
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 12px;
+      height: 30px;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .cake-container.blown .candle-smoke {
+      animation: riseSmoke 1.5s ease-out forwards;
+    }
+
+    @keyframes riseSmoke {
+      0% { opacity: 0.7; transform: translateX(-50%) translateY(0) scale(0.6); }
+      100% { opacity: 0; transform: translateX(-40%) translateY(-35px) scale(1.5); }
+    }
+
+    .wish-hint {
+      font-size: 0.88rem;
+      color: var(--gold-light);
+      margin-top: -6px;
+      margin-bottom: 18px;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    /* ==========================================================================
+       NEW SECTION: SEJAL'S OFFICIAL WORLD ATLAS 🌍
+       ========================================================================== */
+    .atlas-card {
+      position: relative;
+    }
+
+    /* Stylized Soft-Pink / Parchment Cartoon Map Board */
+    .atlas-map-board {
+      position: relative;
+      background: linear-gradient(145deg, rgba(58, 14, 38, 0.92) 0%, rgba(32, 6, 22, 0.96) 100%);
+      border: 1.5px dashed rgba(246, 200, 110, 0.45);
+      border-radius: 24px;
+      padding: 24px 16px;
+      box-shadow: inset 0 0 35px rgba(0, 0, 0, 0.45), 0 10px 25px rgba(0, 0, 0, 0.35);
+      background-image: radial-gradient(rgba(246, 200, 110, 0.12) 1.5px, transparent 1.5px);
+      background-size: 22px 22px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    /* Decorative Map Compass & Clouds */
+    .atlas-compass-bg {
+      position: absolute;
+      top: 12px;
+      right: 14px;
+      width: 48px;
+      height: 48px;
+      opacity: 0.3;
+      pointer-events: none;
+      filter: drop-shadow(0 0 8px var(--gold-glow));
+    }
+
+    .atlas-ship-bg {
+      position: absolute;
+      bottom: 10px;
+      left: 14px;
+      width: 42px;
+      height: 28px;
+      opacity: 0.28;
+      pointer-events: none;
+      animation: floatShip 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatShip {
+      0% { transform: translateY(0) rotate(-2deg); }
+      100% { transform: translateY(-4px) rotate(3deg); }
+    }
+
+    /* Pins Grid */
+    .atlas-pins-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      position: relative;
+      z-index: 2;
+    }
+
+    @media (max-width: 440px) {
+      .atlas-pins-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+    }
+
+    /* Single Map Pin Station Card */
+    .map-station {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 215, 230, 0.18);
+      border-radius: 18px;
+      padding: 16px 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.3s var(--ease-bounce);
+      touch-action: manipulation;
+      min-height: 140px;
+    }
+
+    .map-station:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: var(--rose-light);
+      transform: translateY(-2px);
+    }
+
+    .map-station:active {
+      transform: scale(0.98);
+    }
+
+    /* Tappable Pin Target Button (at least 48px touch-friendly) */
+    .pin-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ff4b72 0%, #ba163e 100%);
+      border: 2px solid var(--gold-light);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      box-shadow: 0 4px 15px rgba(255, 75, 114, 0.45);
+      margin-bottom: 10px;
+      transition: transform 0.4s var(--ease-bounce);
+      position: relative;
+    }
+
+    .map-station.tapped .pin-btn {
+      border-color: #ffd166;
+      box-shadow: 0 0 15px var(--gold-glow);
+    }
+
+    /* Location Label */
+    .station-name {
+      font-family: var(--font-serif);
+      font-size: 1.05rem;
+      color: #ffffff;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      margin-bottom: 6px;
+    }
+
+    /* Interactive Teasing Speech Bubble */
+    .speech-bubble {
+      background: linear-gradient(135deg, #ffffff 0%, #fff2f6 100%);
+      color: #380820;
+      font-family: var(--font-handwriting);
+      font-size: 1.18rem;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+      position: relative;
+      margin-top: 8px;
+      opacity: 0;
+      transform: translateY(6px) scale(0.85);
+      transition: all 0.35s var(--ease-bounce);
+      pointer-events: none;
+      max-width: 95%;
+      line-height: 1.25;
+    }
+
+    .speech-bubble::before {
+      content: '';
+      position: absolute;
+      top: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-bottom: 6px solid #ffffff;
+    }
+
+    .map-station.tapped .speech-bubble {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* Official Rubber Stamp */
+    .atlas-stamp {
+      font-family: var(--font-serif);
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #ff8fab;
+      border: 1.5px solid #ff4b72;
+      border-radius: 6px;
+      padding: 4px 8px;
+      margin-top: 8px;
+      transform: rotate(-4deg) scale(0);
+      opacity: 0;
+      transition: transform 0.4s var(--ease-bounce) 0.15s, opacity 0.4s ease 0.15s;
+      background: rgba(45, 9, 31, 0.85);
+      box-shadow: 0 2px 8px rgba(255, 75, 114, 0.25);
+    }
+
+    .map-station.tapped .atlas-stamp {
+      opacity: 1;
+      transform: rotate(-4deg) scale(1);
+    }
+
+    /* 4 SPECIFIC ANIMATIONS */
+    /* 1. Indore: Pin zooms away like a flight */
+    .map-station.anim-indore.tapped .pin-btn {
+      animation: pinFlightZoom 0.9s cubic-bezier(0.2, 0.8, 0.3, 1.2) forwards;
+    }
+    @keyframes pinFlightZoom {
+      0% { transform: scale(1) translate(0, 0); }
+      40% { transform: scale(1.35) translate(8px, -18px) rotate(18deg); }
+      70% { transform: scale(1.15) translate(-4px, -10px) rotate(-6deg); }
+      100% { transform: scale(1.05) translate(0, 0) rotate(0deg); }
+    }
+
+    /* 2. Bokaro: Palm tree & wave sway */
+    .map-station.anim-bokaro.tapped .pin-btn {
+      animation: palmIslandSway 1.2s ease-in-out infinite alternate;
+    }
+    @keyframes palmIslandSway {
+      0% { transform: rotate(-8deg) scale(1.05); }
+      100% { transform: rotate(10deg) scale(1.1); }
+    }
+
+    /* 3. Dhanbad: Dubai luxury skyline sparkle */
+    .map-station.anim-dhanbad.tapped .pin-btn {
+      animation: dubaiLuxuryGlow 1.4s ease-in-out infinite alternate;
+    }
+    @keyframes dubaiLuxuryGlow {
+      0% { transform: scale(1); filter: drop-shadow(0 0 6px rgba(246, 200, 110, 0.6)); }
+      100% { transform: scale(1.15); filter: drop-shadow(0 0 18px rgba(246, 200, 110, 1)); }
+    }
+
+    /* 4. Assam: Spinning compass & wobbling question */
+    .map-station.anim-assam.tapped .pin-btn {
+      animation: compassSearchSpin 1.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+    @keyframes compassSearchSpin {
+      0% { transform: rotate(0deg) scale(1); }
+      50% { transform: rotate(180deg) scale(1.12); }
+      100% { transform: rotate(360deg) scale(1); }
+    }
+
+    /* Unlocked Reward Box after all 4 pins are tapped */
+    .atlas-reward-box {
+      background: linear-gradient(135deg, rgba(62, 14, 42, 0.9) 0%, rgba(35, 6, 24, 0.95) 100%);
+      border: 1.5px solid var(--gold-light);
+      border-radius: 20px;
+      padding: 0;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transform: translateY(18px);
+      transition: all 0.7s var(--ease-romantic);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(246, 200, 110, 0.25);
+    }
+
+    .atlas-reward-box.unlocked {
+      max-height: 380px;
+      opacity: 1;
+      transform: translateY(0);
+      padding: 24px 20px;
+      margin-top: 18px;
+    }
+
+    .score-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(246, 200, 110, 0.15);
+      border: 1px solid var(--gold-primary);
+      color: var(--gold-light);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.86rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      margin-bottom: 14px;
+      box-shadow: 0 0 12px rgba(246, 200, 110, 0.3);
+    }
+
+    .atlas-love-quote {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(1.05rem, 3.4vw, 1.25rem);
+      color: #ffe5a3;
+      line-height: 1.6;
+      margin-bottom: 0;
+      text-shadow: 0 0 10px rgba(246, 200, 110, 0.3);
+    }
+
+    /* ==========================================================================
+       SECTION 3: LOVE NOTES (Deck with Envelopes / 3D Flip)
+       ========================================================================== */
+    .notes-header {
+      margin-bottom: 28px;
+    }
+
+    .note-deck-wrapper {
+      width: 100%;
+      max-width: 480px;
+      margin: 0 auto;
+      perspective: 1200px;
+    }
+
+    .note-card-3d {
+      width: 100%;
+      min-height: 360px;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.65s var(--ease-romantic);
+      cursor: pointer;
+    }
+
+    .note-card-3d.flipped {
+      transform: rotateY(180deg);
+    }
+
+    .card-face {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      border-radius: 24px;
+      padding: 32px 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 1px solid var(--glass-border);
+    }
+
+    /* Front: Luxury Envelope Seal Style */
+    .card-front {
+      background: linear-gradient(145deg, rgba(62, 14, 42, 0.88) 0%, rgba(35, 6, 24, 0.96) 100%);
+      box-shadow: 0 16px 35px rgba(0, 0, 0, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.15);
+      align-items: center;
+      text-align: center;
+    }
+
+    .envelope-stamp {
+      font-size: 2.2rem;
+      margin-bottom: 8px;
+      filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+    }
+
+    .envelope-seal {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #e23b63 0%, #a81c3e 100%);
+      border: 2px solid var(--gold-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 18px rgba(226, 59, 99, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.4);
+      margin: 12px auto;
+      transition: transform 0.3s var(--ease-bounce);
+    }
+
+    .envelope-seal svg {
+      width: 36px;
+      height: 36px;
+      fill: #ffffff;
+    }
+
+    .note-card-3d:hover .envelope-seal {
+      transform: scale(1.1) rotate(6deg);
+    }
+
+    .envelope-prompt {
+      font-size: 0.85rem;
+      color: var(--gold-light);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    /* Back: Romantic Handwritten Parchment Style */
+    .card-back {
+      background: linear-gradient(145deg, rgba(255, 248, 250, 0.96) 0%, rgba(253, 237, 243, 0.98) 100%);
+      color: #3b0920;
+      transform: rotateY(180deg);
+      box-shadow: 0 16px 35px rgba(0, 0, 0, 0.4), inset 0 0 40px rgba(246, 200, 110, 0.15);
+      border-color: rgba(246, 200, 110, 0.4);
+      text-align: left;
+    }
+
+    .card-back::before {
+      content: '';
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      right: 14px;
+      bottom: 14px;
+      border: 1px dashed rgba(212, 75, 114, 0.25);
+      border-radius: 16px;
+      pointer-events: none;
+    }
+
+    .note-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 1px solid rgba(212, 75, 114, 0.15);
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+    }
+
+    .note-category {
+      font-family: var(--font-serif);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #b01a43;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .note-number {
+      font-size: 0.8rem;
+      color: #7d3350;
+      font-weight: 600;
+    }
+
+    .note-body {
+      font-family: var(--font-handwriting);
+      font-size: clamp(1.18rem, 3.8vw, 1.42rem);
+      line-height: 1.55;
+      color: #380820;
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      margin: 6px 0;
+    }
+
+    .note-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      color: #8c3b5c;
+      border-top: 1px solid rgba(212, 75, 114, 0.12);
+      padding-top: 10px;
+    }
+
+    .flip-hint {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.75rem;
+      color: #b01a43;
+      font-weight: 500;
+    }
+
+    /* Deck Navigation */
+    .deck-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      margin-top: 24px;
+      width: 100%;
+    }
+
+    .nav-arrow-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      color: var(--text-white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      transition: all 0.25s ease;
+    }
+
+    .nav-arrow-btn:hover:not(:disabled) {
+      background: var(--rose-primary);
+      border-color: var(--rose-light);
+      transform: scale(1.1);
+      box-shadow: 0 0 15px var(--rose-glow);
+    }
+
+    .nav-arrow-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .deck-counter {
+      font-size: 0.9rem;
+      color: var(--blush-soft);
+      font-weight: 500;
+      min-width: 80px;
+      text-align: center;
+    }
+
+    .notes-dots {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 14px;
+    }
+
+    .note-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.25);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .note-dot.active {
+      width: 18px;
+      border-radius: 6px;
+      background: var(--gold-light);
+      box-shadow: 0 0 8px var(--gold-glow);
+    }
+
+    /* ==========================================================================
+       SECTION 4: OUR YEAR / INTERACTIVE ADORE JAR & MILESTONES
+       ========================================================================== */
+    .adore-card {
+      text-align: center;
+      position: relative;
+    }
+
+    .milestone-badges {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .milestone-item {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 8px 16px;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      color: var(--blush-soft);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .milestone-item strong {
+      color: var(--gold-light);
+    }
+
+    .adore-jar-wrapper {
+      margin: 10px auto 20px auto;
+      cursor: pointer;
+      display: inline-block;
+      position: relative;
+    }
+
+    .adore-jar-svg {
+      width: 110px;
+      height: 110px;
+      filter: drop-shadow(0 6px 18px rgba(246, 200, 110, 0.35));
+      transition: transform 0.3s var(--ease-bounce);
+    }
+
+    .adore-jar-wrapper:hover .adore-jar-svg {
+      transform: scale(1.1) rotate(4deg);
+    }
+
+    .adore-bubble {
+      min-height: 90px;
+      background: rgba(45, 9, 31, 0.75);
+      border: 1px dashed rgba(246, 200, 110, 0.4);
+      border-radius: 18px;
+      padding: 18px 20px;
+      margin: 18px auto 24px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.4s ease;
+      position: relative;
+    }
+
+    .adore-text {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(1.05rem, 3.2vw, 1.25rem);
+      color: var(--gold-light);
+      line-height: 1.5;
+    }
+
+    /* ==========================================================================
+       SECTION 5: FINAL SURPRISE (Big Heart of Hearts + Drawn SVG)
+       ========================================================================== */
+    .final-stage {
+      display: none;
+      opacity: 0;
+      transform: scale(0.95);
+      transition: opacity 1s var(--ease-romantic), transform 1s var(--ease-romantic);
+      width: 100%;
+    }
+
+    .final-stage.revealed {
+      display: block;
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .final-gate {
+      transition: all 0.6s ease;
+    }
+
+    .final-gate.hidden {
+      display: none;
+    }
+
+    /* The Master Heart Assembly */
+    .heart-constellation-container {
+      position: relative;
+      width: min(340px, 85vw);
+      height: min(320px, 80vw);
+      margin: 20px auto 30px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Drawn SVG Stroke Heart */
+    .drawn-heart-svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 0 15px rgba(255, 75, 114, 0.7));
+      z-index: 2;
+    }
+
+    .drawn-heart-path {
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 1000;
+      stroke: url(#heartGradient);
+      stroke-width: 3.5;
+      fill: transparent;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: stroke-dashoffset 2.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .final-stage.revealed .drawn-heart-path {
+      stroke-dashoffset: 0;
+    }
+
+    /* Mini hearts forming the heart cardioid */
+    .mini-heart-ring {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .constellation-heart {
+      position: absolute;
+      font-size: 15px;
+      color: var(--rose-light);
+      filter: drop-shadow(0 0 6px var(--rose-primary));
+      transform: translate(-50%, -50%) scale(0);
+      opacity: 0;
+      transition: transform 0.6s var(--ease-bounce), opacity 0.6s ease;
+    }
+
+    .final-stage.revealed .constellation-heart {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+      animation: heartTwinkle 2.4s infinite ease-in-out;
+      animation-delay: var(--delay, 0s);
+    }
+
+    @keyframes heartTwinkle {
+      0%, 100% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.8; }
+      50% { transform: translate(-50%, -50%) scale(1.25); opacity: 1; filter: drop-shadow(0 0 10px #ff6b8b); }
+    }
+
+    /* Center of Big Heart */
+    .heart-center-text {
+      position: relative;
+      z-index: 4;
+      text-align: center;
+      animation: floatCenter 3.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatCenter {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-6px); }
+    }
+
+    .heart-center-name {
+      font-family: var(--font-cursive);
+      font-size: clamp(2.4rem, 7vw, 3.2rem);
+      color: var(--gold-light);
+      text-shadow: 0 0 18px var(--gold-glow);
+      line-height: 1;
+    }
+
+    .heart-center-sub {
+      font-size: 0.82rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--blush-soft);
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    .final-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    /* Screen Tap Interactive Heart Burst Element */
+    .tap-heart {
+      position: fixed;
+      pointer-events: none;
+      z-index: 1000;
+      animation: burstFly 1s cubic-bezier(0.12, 0.8, 0.32, 1) forwards;
+      will-change: transform, opacity;
+    }
+
+    @keyframes burstFly {
+      0% {
+        transform: translate(-50%, -50%) scale(0.3) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.4) rotate(var(--rot));
+        opacity: 0;
+      }
+    }
+
+    /* Kiss flying emoji */
+    .flying-kiss {
+      position: fixed;
+      pointer-events: none;
+      z-index: 1001;
+      font-size: 2rem;
+      animation: flyKissToHeart 1.6s ease-out forwards;
+    }
+
+    @keyframes flyKissToHeart {
+      0% {
+        transform: translate(-50%, -50%) scale(0.4) rotate(0deg);
+        opacity: 0;
+      }
+      20% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.3) rotate(-10deg);
+      }
+      100% {
+        transform: translate(calc(-50% + var(--kdx)), calc(-50% - 130px)) scale(1.8) rotate(15deg);
+        opacity: 0;
+      }
+    }
+
+    /* ==========================================================================
+       FOOTER
+       ========================================================================== */
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 0.82rem;
+      color: rgba(255, 240, 246, 0.5);
+      position: relative;
+      z-index: 10;
+    }
+
+    /* ==========================================================================
+       RESPONSIVENESS & ACCESSIBILITY
+       ========================================================================== */
+    @media (max-width: 480px) {
+      main {
+        padding: 0 16px 60px 16px;
+      }
+      .glass-card {
+        padding: 28px 18px;
+        border-radius: 22px;
+      }
+      .card-face {
+        padding: 24px 18px;
+      }
+      .script-title {
+        font-size: clamp(2.3rem, 10vw, 3.2rem);
+      }
+      .chapter-indicator {
+        display: none; /* Hide dots on narrow screens for maximum card space */
+      }
+    }
+
+    /* Respect Reduced Motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      body::before {
+        display: none;
+      }
+      .drawn-heart-path {
+        stroke-dashoffset: 0 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BACKGROUND GRAPHICS: Floating Hearts & Rose Petals Canvas -->
+  <canvas id="bgCanvas"></canvas>
+  <canvas id="confettiCanvas"></canvas>
+
+  <!-- TOP PERSISTENT NAVBAR -->
+  <nav class="top-nav" aria-label="Main Navigation">
+    <a href="#openingScreen" class="nav-brand" id="brandLogo">Sejal ❤️</a>
+    
+    <div class="nav-controls">
+      <!-- Music toggle button -->
+      <button class="music-btn" id="musicToggle" aria-label="Toggle background music">
+        <div class="music-waves" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <span id="musicBtnLabel">Play Music 🎵</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- CHAPTER QUICK-DOTS (Desktop right side navigation) -->
+  <aside class="chapter-indicator" aria-label="Page Sections">
+    <button class="chapter-dot active" data-target="openingScreen" title="Opening Screen" aria-label="Go to opening screen"></button>
+    <button class="chapter-dot" data-target="birthdayScreen" title="Birthday Reveal" aria-label="Go to birthday reveal"></button>
+    <button class="chapter-dot" data-target="atlasScreen" title="Sejal's World Atlas" aria-label="Go to Sejal's World Atlas"></button>
+    <button class="chapter-dot" data-target="notesScreen" title="Love Notes" aria-label="Go to love notes"></button>
+    <button class="chapter-dot" data-target="momentScreen" title="Our Year Moment" aria-label="Go to our moment"></button>
+    <button class="chapter-dot" data-target="finalScreen" title="Final Surprise" aria-label="Go to final surprise"></button>
+  </aside>
+
+  <!-- OPTIONAL PLACEHOLDER AUDIO TAG: Easy for you to drop in any MP3 -->
+  <audio id="bgMusic" loop preload="auto">
+    <!-- Replace src with your audio file (e.g. "our-song.mp3") or set CONFIG.musicUrl -->
+    <source src="" type="audio/mpeg">
+  </audio>
+
+  <!-- MAIN SCROLLABLE GIFT EXPERIENCE -->
+  <main>
+
+    <!-- =======================================================================
+         SECTION 1: OPENING HERO SCREEN
+         ======================================================================= -->
+    <section class="screen-section" id="openingScreen">
+      <div class="glass-card">
+        <span class="badge-pill" id="openingBadge">A Special Gift</span>
+
+        <!-- Softly pulsing hero heart -->
+        <div class="hero-heart-container" id="heroHeartButton" role="button" tabindex="0" aria-label="Open birthday surprise">
+          <div class="heart-pulse-glow" aria-hidden="true"></div>
+          <div class="heart-svg-wrapper">
+            <svg viewBox="0 0 100 90" fill="none" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+              <defs>
+                <linearGradient id="heartGradHero" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#ff6b8b"/>
+                  <stop offset="50%" stop-color="#e83a67"/>
+                  <stop offset="100%" stop-color="#a41038"/>
+                </linearGradient>
+              </defs>
+              <path d="M50 85 C50 85 88 56 88 28 C88 12 74 2 59 2 C53 2 50 6 50 6 C50 6 47 2 41 2 C26 2 12 12 12 28 C12 56 50 85 50 85 Z" 
+                    fill="url(#heartGradHero)"/>
+              <path d="M26 14 C18 20 18 30 20 38" stroke="rgba(255,255,255,0.45)" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+
+        <h1 class="script-title" id="openingTitle">Something special for you, <span class="highlight">Sejal</span>…</h1>
+        
+        <p class="body-romantic" id="openingSubtitle">
+          A little personal universe made just for you, crafted with every bit of my love.
+        </p>
+
+        <div>
+          <button class="btn-romantic btn-gold" id="btnOpenGift">
+            <span>Tap to open</span>
+            <span aria-hidden="true">✨</span>
+          </button>
+        </div>
+        <span class="heart-tap-hint">Tap the heart or button to begin</span>
+      </div>
+    </section>
+
+
+    <!-- =======================================================================
+         SECTION 2: BIRTHDAY REVEAL & INTERACTIVE CAKE
+         ======================================================================= -->
+    <section class="screen-section" id="birthdayScreen">
+      <div class="glass-card">
+        <span class="badge-pill" id="birthdayBadge">✨ Today's Celebration ✨</span>
+
+        <!-- Interactive Birthday Cake with Blow-out Candle -->
+        <div class="cake-container" id="cakeInteractive" role="button" tabindex="0" aria-label="Tap candle to blow it out and make a wish">
+          <svg class="cake-svg" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="frostingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#ffb8cc"/>
+                <stop offset="100%" stop-color="#f06292"/>
+              </linearGradient>
+              <linearGradient id="baseGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#fdf4eb"/>
+                <stop offset="100%" stop-color="#f3d7c5"/>
+              </linearGradient>
+              <radialGradient id="flameGrad" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#fff8db"/>
+                <stop offset="50%" stop-color="#ffd152"/>
+                <stop offset="100%" stop-color="#ff7b2b"/>
+              </radialGradient>
+              <radialGradient id="flameAura" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="rgba(255, 214, 94, 0.65)"/>
+                <stop offset="100%" stop-color="rgba(255, 123, 43, 0)"/>
+              </radialGradient>
+            </defs>
+            <!-- Cake Plate -->
+            <ellipse cx="60" cy="100" rx="50" ry="10" fill="rgba(246, 200, 110, 0.45)"/>
+            <!-- Cake Bottom Layer -->
+            <path d="M22 75 C22 75 22 92 60 92 C98 92 98 75 98 75 L98 62 C98 62 98 76 60 76 C22 76 22 62 22 62 Z" fill="url(#baseGrad)"/>
+            <!-- Cake Frosting Layer -->
+            <path d="M20 62 C20 62 20 80 60 80 C100 80 100 62 100 62 C100 48 80 46 60 46 C40 46 20 48 20 62 Z" fill="url(#frostingGrad)"/>
+            <!-- Cream drips -->
+            <path d="M20 60 Q30 72 40 60 Q50 72 60 60 Q70 72 80 60 Q90 72 100 60" stroke="#ffffff" stroke-width="3" stroke-linecap="round" fill="none"/>
+            <!-- Sprinkles -->
+            <circle cx="35" cy="56" r="2" fill="#ffd152"/>
+            <circle cx="50" cy="52" r="2" fill="#ffffff"/>
+            <circle cx="70" cy="54" r="2" fill="#ffd152"/>
+            <circle cx="85" cy="58" r="2" fill="#ff4b72"/>
+            <!-- Candle Stick -->
+            <rect x="57" y="24" width="6" height="24" rx="3" fill="#ffffff"/>
+            <path d="M57 28 L63 32 M57 36 L63 40" stroke="#f06292" stroke-width="2"/>
+            <line x1="60" y1="24" x2="60" y2="19" stroke="#333333" stroke-width="1.5"/>
+            <!-- Candle Glow Aura -->
+            <circle class="candle-glow" cx="60" cy="14" r="14" fill="url(#flameAura)"/>
+            <!-- Candle Flame -->
+            <path class="candle-flame" d="M60 7 C57 12 55 15 57 18 C59 20 61 20 63 18 C65 15 63 12 60 7 Z" fill="url(#flameGrad)"/>
+          </svg>
+          <div class="candle-smoke" aria-hidden="true">
+            <svg viewBox="0 0 20 40" fill="none" width="100%" height="100%">
+              <path d="M10 38 Q5 26 12 18 T10 2" stroke="rgba(255,255,255,0.7)" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="wish-hint" id="wishHintText">Tap the candle to make a secret wish ✨</div>
+
+        <h2 class="script-title" id="birthdayTitle">Happy Birthday, <span class="highlight">Sejal</span> 🎂</h2>
+        
+        <div class="romantic-date" id="birthdayDateDisplay">1st December</div>
+
+        <p class="body-romantic" id="birthdayMessage">
+          Today is all about celebrating the most wonderful human being I know. Sejal, you bring a quiet warmth, so much laughter, and pure happiness into my world every single day.
+        </p>
+
+        <div>
+          <!-- Advances smoothly to Sejal's Atlas -->
+          <button class="btn-romantic" id="btnToAtlas">
+            <span>Explore Sejal's Atlas</span>
+            <span aria-hidden="true">🌍</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =======================================================================
+         NEW SECTION: SEJAL'S OFFICIAL WORLD ATLAS 🌍
+         ======================================================================= -->
+    <section class="screen-section" id="atlasScreen">
+      <div class="glass-card atlas-card">
+        <span class="badge-pill" id="atlasBadge">Special Edition</span>
+
+        <h2 class="script-title" id="atlasTitle" style="font-size: clamp(2.3rem, 7vw, 3.6rem);">
+          Sejal's Official World Atlas 🌍
+        </h2>
+
+        <div class="romantic-date" id="atlasSubtitle" style="font-size: 1.05rem; letter-spacing: 0.04em;">
+          Geography, as taught by Sejal.
+        </div>
+
+        <p class="body-romantic" id="atlasInstruction" style="margin-bottom: 20px;">
+          Tap each pin on the map to inspect her groundbreaking discoveries:
+        </p>
+
+        <!-- Cartoon Stylized Map Board -->
+        <div class="atlas-map-board">
+          
+          <!-- Decorative Background SVGs: Compass Rose & Sailing Boat -->
+          <svg class="atlas-compass-bg" viewBox="0 0 100 100" fill="none">
+            <circle cx="50" cy="50" r="45" stroke="#f6c86e" stroke-width="2" stroke-dasharray="4 4"/>
+            <polygon points="50,10 56,44 50,50 44,44" fill="#ff4b72"/>
+            <polygon points="50,90 56,56 50,50 44,56" fill="#f6c86e"/>
+            <polygon points="10,50 44,44 50,50 44,56" fill="#ff7597"/>
+            <polygon points="90,50 56,44 50,50 56,56" fill="#ffe5a3"/>
+            <circle cx="50" cy="50" r="4" fill="#ffffff"/>
+            <text x="46" y="8" fill="#ffd166" font-size="9" font-weight="bold">N</text>
+          </svg>
+
+          <svg class="atlas-ship-bg" viewBox="0 0 60 40" fill="none">
+            <path d="M10 26 L50 26 L42 36 L18 36 Z" fill="#ffd166" opacity="0.8"/>
+            <path d="M28 6 L28 26 L44 26 Z" fill="#ffffff" opacity="0.9"/>
+            <path d="M26 12 L26 26 L14 26 Z" fill="#ff7597" opacity="0.9"/>
+            <path d="M5 34 Q20 38 35 34 T60 34" stroke="#ff4b72" stroke-width="2" fill="none"/>
+          </svg>
+
+          <!-- 4 Tappable Map Pin Stations -->
+          <div class="atlas-pins-grid" id="atlasPinsContainer">
+            <!-- Dynamically Rendered & Enhanced via JS -->
+          </div>
+
+        </div>
+
+        <!-- Reward Box (Revealed after all 4 pins are tapped) -->
+        <div class="atlas-reward-box" id="atlasRewardBox">
+          <div class="score-badge" id="atlasScoreBadge">
+            Sejal's Geography Score: 0/4 🏆 (Perfect 10/10 as a girlfriend)
+          </div>
+          <div class="atlas-love-quote" id="atlasRewardQuote">
+            "Sejal, you can mix up every place on the map, but you've never once gotten me wrong. You're my favourite place in the world. 🧡"
+          </div>
+        </div>
+
+        <div style="margin-top: 26px;">
+          <button class="btn-romantic btn-gold" id="btnAtlasToNotes">
+            <span>Continue to Love Notes</span>
+            <span aria-hidden="true">💌</span>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =======================================================================
+         SECTION 3: LOVE NOTES (Flipping Envelope Cards)
+         ======================================================================= -->
+    <section class="screen-section" id="notesScreen">
+      <div class="notes-header">
+        <span class="badge-pill">Written For You</span>
+        <h2 class="script-title">Love Notes For <span class="highlight">Sejal</span></h2>
+        <p class="body-romantic" style="margin-bottom: 0;">
+          Tap any card to unseal the envelope and read what's inside.
+        </p>
+      </div>
+
+      <!-- 3D Interactive Card Deck -->
+      <div class="note-deck-wrapper">
+        <div class="note-card-3d" id="activeNoteCard" role="button" tabindex="0" aria-label="Tap to open or flip this love note">
+          
+          <!-- FRONT FACE: Sealed Envelope with Wax Stamp -->
+          <div class="card-face card-front">
+            <div>
+              <div class="envelope-stamp" id="cardFrontIcon">💌</div>
+              <div class="badge-pill" style="margin-bottom: 8px;" id="cardFrontCategory">Your Smile</div>
+            </div>
+
+            <div>
+              <div class="envelope-seal">
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+              </div>
+              <div class="envelope-prompt">Tap to Unseal Note</div>
+            </div>
+
+            <div style="font-size: 0.8rem; color: var(--blush-soft); opacity: 0.7;">
+              Note <span id="cardFrontNum">1</span> of <span id="cardFrontTotal">7</span>
+            </div>
+          </div>
+
+          <!-- BACK FACE: Handwritten Letter on Delicate Parchment -->
+          <div class="card-face card-back">
+            <div class="note-header">
+              <span class="note-category" id="cardBackCategory">Your Smile</span>
+              <span class="note-number" id="cardBackNum">Note 1/7</span>
+            </div>
+
+            <div class="note-body" id="cardBackBody">
+              The way your eyes crinkle when something is genuinely funny to you—it's my favourite sight in the whole world.
+            </div>
+
+            <div class="note-footer">
+              <span>Forever yours</span>
+              <span class="flip-hint">Tap to re-seal ↺</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Deck Navigation Arrows and Counter -->
+      <div class="deck-controls">
+        <button class="nav-arrow-btn" id="prevNoteBtn" aria-label="Previous note">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
+
+        <span class="deck-counter" id="deckCounter">Note 1 of 7</span>
+
+        <button class="nav-arrow-btn" id="nextNoteBtn" aria-label="Next note">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Navigation Dots -->
+      <div class="notes-dots" id="notesDotsContainer" aria-hidden="true">
+        <!-- Generated via JS -->
+      </div>
+
+      <div style="margin-top: 32px;">
+        <button class="btn-romantic btn-gold" id="btnToMoment">
+          <span>There's more for you</span>
+          <span aria-hidden="true">→</span>
+        </button>
+      </div>
+    </section>
+
+
+    <!-- =======================================================================
+         SECTION 4: OUR YEAR MOMENT & ADORE JAR
+         ======================================================================= -->
+    <section class="screen-section" id="momentScreen">
+      <div class="glass-card adore-card">
+        <span class="badge-pill" id="momentBadge">A Special Reminder</span>
+
+        <h2 class="script-title" style="font-size: clamp(2.2rem, 6.5vw, 3.4rem);" id="momentTitle">
+          Another year of you, and I'm the luckiest.
+        </h2>
+
+        <p class="body-romantic" id="momentSubtitle">
+          Every single day with you is my favourite chapter so far.
+        </p>
+
+        <!-- Sweet Milestones -->
+        <div class="milestone-badges">
+          <div class="milestone-item">🎂 <strong>1st December:</strong> Your Day</div>
+          <div class="milestone-item">♾️ <strong>Infinite:</strong> Reasons to smile</div>
+          <div class="milestone-item">✨ <strong>365 Days:</strong> Of pure magic</div>
+        </div>
+
+        <!-- Interactive Wishing Jar -->
+        <div class="adore-jar-wrapper" id="adoreJarTrigger" role="button" tabindex="0" aria-label="Tap to reveal another reason I adore you">
+          <svg class="adore-jar-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="jarGlass" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="rgba(255,255,255,0.4)"/>
+                <stop offset="100%" stop-color="rgba(255,75,114,0.15)"/>
+              </linearGradient>
+            </defs>
+            <!-- Jar Cork -->
+            <rect x="36" y="8" width="28" height="10" rx="3" fill="#d29661"/>
+            <rect x="34" y="16" width="32" height="6" rx="2" fill="#c3834b"/>
+            <!-- Glass Body -->
+            <path d="M30 22 C20 22 15 35 15 50 C15 78 22 92 50 92 C78 92 85 78 85 50 C85 35 80 22 70 22 Z" 
+                  fill="url(#jarGlass)" stroke="rgba(246,200,110,0.5)" stroke-width="2"/>
+            <!-- Highlights -->
+            <path d="M22 45 C22 35 26 28 34 26" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+            <!-- Floating Hearts Inside Jar -->
+            <circle cx="50" cy="55" r="3" fill="#ff4b72"/>
+            <circle cx="62" cy="68" r="2.5" fill="#ffd152"/>
+            <circle cx="38" cy="70" r="3" fill="#ffffff"/>
+            <circle cx="48" cy="80" r="2" fill="#ff7597"/>
+            <path d="M50 45 C50 45 56 40 56 36 C56 33 53 31 50 34 C47 31 44 33 44 36 C44 40 50 45 50 45 Z" fill="#f6c86e"/>
+          </svg>
+        </div>
+
+        <div style="font-size: 0.85rem; color: var(--gold-light); margin-bottom: 12px; font-weight: 500;" id="jarPromptText">
+          Tap the wishing jar for reasons I adore you:
+        </div>
+
+        <!-- Dynamic Reason Box -->
+        <div class="adore-bubble" id="adoreBubbleBox">
+          <div class="adore-text" id="adoreReasonText">
+            "The warmth in your hugs that makes the whole world quiet."
+          </div>
+        </div>
+
+        <div>
+          <button class="btn-romantic btn-gold" id="btnRevealNextReason" style="margin-bottom: 24px;">
+            <span>Tap for another reason 💖</span>
+          </button>
+        </div>
+
+        <div style="border-top: 1px solid var(--glass-border); padding-top: 24px;">
+          <button class="btn-romantic" id="btnToOneLastThing">
+            <span>One last thing…</span>
+            <span aria-hidden="true">🌹</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =======================================================================
+         SECTION 5: FINAL SURPRISE (Drawn SVG Heart & Heart of Hearts)
+         ======================================================================= -->
+    <section class="screen-section" id="finalScreen">
+      
+      <!-- Gatekeeper trigger if reached directly -->
+      <div class="final-gate" id="finalGate">
+        <div class="glass-card">
+          <span class="badge-pill">Before You Go</span>
+          <h2 class="script-title">Just One More Thing, <span class="highlight">Sejal</span>…</h2>
+          <p class="body-romantic">
+            I saved the most important message for the very end.
+          </p>
+          <button class="btn-romantic btn-gold" id="btnUnlockFinal">
+            <span>Open Final Surprise</span>
+            <span aria-hidden="true">🎁</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Revealed Master Stage -->
+      <div class="final-stage" id="finalStage">
+        <div class="glass-card" style="padding-bottom: 40px;">
+          <span class="badge-pill" id="finalBadge">Forever & Always</span>
+
+          <!-- Big Heart of Hearts Masterpiece -->
+          <div class="heart-constellation-container">
+            
+            <!-- SVG with Drawn-on Stroke Animation -->
+            <svg class="drawn-heart-svg" viewBox="0 0 300 280">
+              <defs>
+                <linearGradient id="heartGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#ffd166"/>
+                  <stop offset="50%" stop-color="#ff4b72"/>
+                  <stop offset="100%" stop-color="#ff8fab"/>
+                </linearGradient>
+              </defs>
+              <path class="drawn-heart-path" 
+                    d="M 150,70 
+                       C 150,35 185,15 220,35 
+                       C 260,60 270,110 210,170 
+                       L 150,235 
+                       L 90,170 
+                       C 30,110 40,60 80,35 
+                       C 115,15 150,35 150,70 Z" />
+            </svg>
+
+            <!-- Ring of Mini Hearts Generated Along Parametric Cardioid -->
+            <div class="mini-heart-ring" id="miniHeartRing" aria-hidden="true">
+              <!-- Dynamically populated with ~42 animated mini hearts -->
+            </div>
+
+            <!-- Heart Center Text -->
+            <div class="heart-center-text">
+              <div class="heart-center-name" id="finalCenterName">Sejal</div>
+              <div class="heart-center-sub">My Whole Heart</div>
+            </div>
+
+          </div>
+
+          <!-- Final Grand Emotional Birthday Message -->
+          <h2 class="script-title" style="font-size: clamp(2.4rem, 7.5vw, 3.8rem); margin-bottom: 8px;" id="finalTitle">
+            I love you, <span class="highlight">Sejal</span>.
+          </h2>
+
+          <div class="romantic-date" style="font-size: 1.25rem; color: var(--gold-light);" id="finalWish">
+            Happy Birthday, my love. ❤️
+          </div>
+
+          <p class="body-romantic" id="finalLetter" style="font-size: 1.08rem; max-width: 540px;">
+            Thank you for being my constant comfort, my favourite laugh, and my greatest adventure. May this upcoming year bring you every bit of the peace, success, and pure joy that you bring into my life every single day.
+          </p>
+
+          <!-- Bonus Affectionate P.S. from Atlas Joke -->
+          <p class="body-romantic" id="finalPs" style="font-size: 1rem; color: var(--gold-light); font-weight: 500; margin-top: -14px; margin-bottom: 22px;">
+            P.S. Assam is in India. You're welcome. 😄
+          </p>
+
+          <div style="font-family: var(--font-cursive); font-size: 2rem; color: var(--gold-light); margin-bottom: 24px;" id="finalSignature">
+            Yours, always & forever
+          </div>
+
+          <!-- Interactive Final Actions -->
+          <div class="final-actions">
+            <button class="btn-romantic" id="btnSendKiss">
+              <span>Send a Kiss</span>
+              <span aria-hidden="true">💋</span>
+            </button>
+            <button class="btn-romantic btn-gold" id="btnReplay">
+              <span>Relive From Start</span>
+              <span aria-hidden="true">↺</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    Made with infinite love for <strong style="color: var(--gold-light);">Sejal</strong> on her birthday ✨
+  </footer>
+
+
+  <!-- =========================================================================
+       JAVASCRIPT: CONFIGURATION & INTERACTIVE LOGIC
+       ========================================================================= -->
+  <script>
+    /**
+     * =========================================================================
+     * EASILY EDITABLE CONFIGURATION
+     * Personalize all names, dates, text, atlas jokes, and love notes right here!
+     * =========================================================================
+     */
+    const CONFIG = {
+      // Personal Details
+      recipientName: "Sejal",
+      birthdayDate: "1st December",
+      
+      // Optional Custom Music URL
+      // Tip: Put an mp3 in the same folder (e.g. "our-song.mp3") or paste an audio link here.
+      // If left empty (""), a soothing romantic music box melody synthesizes natively!
+      musicUrl: "", 
+
+      // Section 1: Opening Screen
+      opening: {
+        badge: "Something special for you",
+        title: "Something special for you, Sejal…",
+        subtitle: "A little personal universe made just for you, crafted with every bit of my love.",
+        buttonText: "Tap to open ✨"
+      },
+
+      // Section 2: Birthday Celebration
+      birthday: {
+        badge: "✨ Today's Celebration ✨",
+        title: "Happy Birthday, Sejal 🎂",
+        dateDisplay: "1st December",
+        message: "Today is all about celebrating the most wonderful human being I know. Sejal, you bring a quiet warmth, so much laughter, and pure happiness into my world every single day.",
+        wishPrompt: "Tap the candle flame to make a secret wish!",
+        wishGranted: "Your wish is sealed in my heart forever ✨"
+      },
+
+      // Section: Sejal's Official World Atlas 🌍 (Inside joke section)
+      atlas: {
+        badge: "Special Edition",
+        title: "Sejal's Official World Atlas 🌍",
+        subtitle: "Geography, as taught by Sejal.",
+        instruction: "Tap each pin on the map to inspect her groundbreaking discoveries:",
+        pins: [
+          {
+            id: "indore",
+            name: "Indore",
+            thought: "Indonesia?",
+            stamp: "Close enough 😌",
+            icon: "✈️",
+            animClass: "anim-indore"
+          },
+          {
+            id: "bokaro",
+            name: "Bokaro",
+            thought: "Bali 🌴",
+            stamp: "Wrong hemisphere, right vibes",
+            icon: "🏝️",
+            animClass: "anim-bokaro"
+          },
+          {
+            id: "dhanbad",
+            name: "Dhanbad",
+            thought: "Dubai 🏙️",
+            stamp: "Coal city, but make it luxury",
+            icon: "💎",
+            animClass: "anim-dhanbad"
+          },
+          {
+            id: "assam",
+            name: "Assam",
+            thought: "Where is Assam?? 🧭",
+            stamp: "Location: Unknown (but loved)",
+            icon: "❓",
+            animClass: "anim-assam"
+          }
+        ],
+        scoreBadge: "Sejal's Geography Score: 0/4 🏆 (Perfect 10/10 as a girlfriend)",
+        rewardQuote: "Sejal, you can mix up every place on the map, but you've never once gotten me wrong. You're my favourite place in the world. 🧡"
+      },
+
+      // Section 3: Love Notes (Easily edit, reorder or add more notes!)
+      loveNotes: [
+        {
+          category: "Your Smile",
+          icon: "✨",
+          body: "The way your eyes crinkle when you really laugh—it instantly turns my worst days around. Your smile is, without question, my favourite place in the world."
+        },
+        {
+          category: "Our Destinations",
+          icon: "🗺️",
+          body: "Whether you call it Bali, Dubai, or 'somewhere near India,' I'd follow you to every wrong destination and make it the right one."
+        },
+        {
+          category: "Ordinary Days",
+          icon: "☕",
+          body: "A quiet evening, a silly conversation, or just walking beside you—with you, even doing absolutely nothing feels like the highlight of my week."
+        },
+        {
+          category: "A Promise",
+          icon: "🤝",
+          body: "Through every busy week, every dream you chase, and every quiet morning, I promise to always be your biggest cheerleader and your safest place."
+        },
+        {
+          category: "That Cute Memory",
+          icon: "😂",
+          body: "Remember that time we couldn't stop laughing until our stomachs hurt? I still catch myself smiling like an idiot whenever that memory pops into my head."
+        },
+        {
+          category: "My Favourite Thing",
+          icon: "🌸",
+          body: "Your genuine kindness, the quiet passion you put into what you care about, and how effortlessly you make everyone around you feel cherished—especially me."
+        },
+        {
+          category: "Forever & Always",
+          icon: "💖",
+          body: "No matter how many birthdays pass, falling in love with you will always be the easiest, sweetest thing I ever do. Happy Birthday, my love."
+        }
+      ],
+
+      // Section 4: Our Year Moment & Reasons Jar
+      moment: {
+        badge: "A Special Reminder",
+        title: "Another year of you, and I'm the luckiest.",
+        subtitle: "Every single day with you is my favourite chapter so far.",
+        reasons: [
+          "The cute little faces you make when you're teasing me",
+          "How your hugs make everything else in the world fade away",
+          "The way your eyes shine when you talk about things you love",
+          "How thoughtful and empathetic you are to everyone around you",
+          "The sweet sleepy voice you have when you wake up",
+          "How you always know how to make me laugh when I'm stressed",
+          "Your unmatched strength, elegance, and soft heart",
+          "Just simply… because you are Sejal, and no one else could ever compare."
+        ]
+      },
+
+      // Section 5: Final Surprise
+      final: {
+        badge: "Forever & Always",
+        centerName: "Sejal",
+        title: "I love you, Sejal.",
+        wish: "Happy Birthday, my love. ❤️",
+        letter: "Thank you for being my constant comfort, my favourite laugh, and my greatest adventure. May this upcoming year bring you every bit of the peace, success, and pure joy that you bring into my life every single day.",
+        ps: "P.S. Assam is in India. You're welcome. 😄",
+        signature: "Yours, always & forever"
+      }
+    };
+
+
+    /**
+     * =========================================================================
+     * INITIALIZATION & POPULATING DYNAMIC CONTENT
+     * =========================================================================
+     */
+    document.addEventListener("DOMContentLoaded", () => {
+      populateConfigData();
+      initAudioEngine();
+      initCanvasParticles();
+      initConfetti();
+      initInteractiveCandle();
+      initAtlasSection();
+      initLoveNotesDeck();
+      initAdoreJar();
+      initHeartConstellation();
+      initTapHeartBurst();
+      initSectionObserver();
+      initActionButtons();
+    });
+
+    function populateConfigData() {
+      // Brand logo
+      document.getElementById("brandLogo").textContent = `${CONFIG.recipientName} ❤️`;
+
+      // Opening Screen
+      document.getElementById("openingBadge").textContent = CONFIG.opening.badge;
+      document.getElementById("openingTitle").innerHTML = `Something special for you, <span class="highlight">${CONFIG.recipientName}</span>…`;
+      document.getElementById("openingSubtitle").textContent = CONFIG.opening.subtitle;
+      document.getElementById("btnOpenGift").innerHTML = `<span>${CONFIG.opening.buttonText}</span>`;
+
+      // Birthday Screen
+      document.getElementById("birthdayBadge").textContent = CONFIG.birthday.badge;
+      document.getElementById("birthdayTitle").innerHTML = `Happy Birthday, <span class="highlight">${CONFIG.recipientName}</span> 🎂`;
+      document.getElementById("birthdayDateDisplay").textContent = CONFIG.birthday.dateDisplay;
+      document.getElementById("birthdayMessage").textContent = CONFIG.birthday.message;
+      document.getElementById("wishHintText").textContent = CONFIG.birthday.wishPrompt;
+
+      // Atlas Section
+      document.getElementById("atlasBadge").textContent = CONFIG.atlas.badge;
+      document.getElementById("atlasTitle").innerHTML = `${CONFIG.atlas.title}`;
+      document.getElementById("atlasSubtitle").textContent = CONFIG.atlas.subtitle;
+      document.getElementById("atlasInstruction").textContent = CONFIG.atlas.instruction;
+      document.getElementById("atlasScoreBadge").textContent = CONFIG.atlas.scoreBadge;
+      document.getElementById("atlasRewardQuote").textContent = `"${CONFIG.atlas.rewardQuote}"`;
+
+      // Moment Screen
+      document.getElementById("momentBadge").textContent = CONFIG.moment.badge;
+      document.getElementById("momentTitle").textContent = CONFIG.moment.title;
+      document.getElementById("momentSubtitle").textContent = CONFIG.moment.subtitle;
+
+      // Final Screen
+      document.getElementById("finalBadge").textContent = CONFIG.final.badge;
+      document.getElementById("finalCenterName").textContent = CONFIG.final.centerName;
+      document.getElementById("finalTitle").innerHTML = `I love you, <span class="highlight">${CONFIG.recipientName}</span>.`;
+      document.getElementById("finalWish").textContent = CONFIG.final.wish;
+      document.getElementById("finalLetter").textContent = CONFIG.final.letter;
+      document.getElementById("finalPs").textContent = CONFIG.final.ps;
+      document.getElementById("finalSignature").textContent = CONFIG.final.signature;
+    }
+
+
+    /**
+     * =========================================================================
+     * AUDIO ENGINE (Custom MP3 + Dreamy Romantic Synthesizer Fallback)
+     * =========================================================================
+     */
+    let audioCtx = null;
+    let isPlaying = false;
+    let synthTimer = null;
+    let audioEl = null;
+
+    function initAudioEngine() {
+      audioEl = document.getElementById("bgMusic");
+      const musicBtn = document.getElementById("musicToggle");
+
+      if (CONFIG.musicUrl && CONFIG.musicUrl.trim() !== "") {
+        audioEl.src = CONFIG.musicUrl;
+      }
+
+      musicBtn.addEventListener("click", () => {
+        toggleMusic();
+      });
+    }
+
+    function toggleMusic(forcePlay = false) {
+      const musicBtn = document.getElementById("musicToggle");
+      const musicLabel = document.getElementById("musicBtnLabel");
+
+      if (isPlaying && !forcePlay) {
+        // Pause music
+        isPlaying = false;
+        musicBtn.classList.remove("playing");
+        musicLabel.textContent = "Play Music 🎵";
+
+        if (audioEl && !audioEl.paused) {
+          audioEl.pause();
+        }
+        if (synthTimer) {
+          clearInterval(synthTimer);
+          synthTimer = null;
+        }
+      } else {
+        // Play music
+        isPlaying = true;
+        musicBtn.classList.add("playing");
+        musicLabel.textContent = "Music On 💖";
+
+        if (CONFIG.musicUrl && CONFIG.musicUrl.trim() !== "") {
+          if (!audioEl.src || audioEl.src !== CONFIG.musicUrl) {
+            audioEl.src = CONFIG.musicUrl;
+          }
+          audioEl.play().catch(e => {
+            console.log("Audio file playback blocked, switching to built-in dreamy synth.");
+            startSynthLullaby();
+          });
+        } else {
+          startSynthLullaby();
+        }
+      }
+    }
+
+    // Gentle Romantic Music-Box Synthesizer using Web Audio API
+    function startSynthLullaby() {
+      if (!window.AudioContext && !window.webkitAudioContext) return;
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+
+      // Celestial music box arpeggio sequence
+      const melodyChords = [
+        [523.25, 659.25, 783.99, 987.77], // C5, E5, G5, B5 (Cmaj7)
+        [493.88, 587.33, 783.99, 880.00], // B4, D5, G5, A5 (G/B)
+        [440.00, 523.25, 659.25, 783.99], // A4, C5, E5, G5 (Am7)
+        [349.23, 523.25, 659.25, 698.46]  // F4, C5, E5, F5 (Fmaj7)
+      ];
+
+      let chordIndex = 0;
+      let noteStep = 0;
+
+      function playNextPluck() {
+        if (!isPlaying || !audioCtx) return;
+
+        const chord = melodyChords[chordIndex];
+        const freq = chord[noteStep % chord.length];
+
+        playTone(freq, 1.3);
+
+        noteStep++;
+        if (noteStep % 4 === 0) {
+          chordIndex = (chordIndex + 1) % melodyChords.length;
+        }
+      }
+
+      if (synthTimer) clearInterval(synthTimer);
+      playNextPluck();
+      synthTimer = setInterval(playNextPluck, 520);
+    }
+
+    function playTone(freq, duration = 1.2) {
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+
+        // Music box bell tone (pure sine wave with exponential decay)
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+
+        gain.gain.setValueAtTime(0, audioCtx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.12, audioCtx.currentTime + 0.03);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (err) {
+        // Safe fail
+      }
+    }
+
+
+    /**
+     * =========================================================================
+     * CANVAS BACKGROUND (Floating Hearts & Falling Rose Petals)
+     * =========================================================================
+     */
+    function initCanvasParticles() {
+      const canvas = document.getElementById("bgCanvas");
+      const ctx = canvas.getContext("2d");
+
+      let width = canvas.width = window.innerWidth;
+      let height = canvas.height = window.innerHeight;
+
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReduced) return;
+
+      window.addEventListener("resize", () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      });
+
+      // Floating Hearts Pool
+      const hearts = [];
+      const numHearts = Math.min(22, Math.floor(width / 35));
+
+      for (let i = 0; i < numHearts; i++) {
+        hearts.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          size: Math.random() * 14 + 10,
+          speedY: Math.random() * 0.7 + 0.35,
+          speedX: Math.random() * 0.6 - 0.3,
+          opacity: Math.random() * 0.45 + 0.25,
+          angle: Math.random() * Math.PI * 2,
+          wobbleSpeed: Math.random() * 0.02 + 0.01,
+          color: Math.random() > 0.4 ? "rgba(255, 75, 114," : "rgba(246, 200, 110,"
+        });
+      }
+
+      // Falling Rose Petals Pool
+      const petals = [];
+      const numPetals = Math.min(18, Math.floor(width / 40));
+
+      for (let i = 0; i < numPetals; i++) {
+        petals.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          size: Math.random() * 12 + 8,
+          speedY: Math.random() * 0.9 + 0.5,
+          speedX: Math.random() * 0.8 - 0.4,
+          rot: Math.random() * Math.PI * 2,
+          rotSpeed: Math.random() * 0.03 - 0.015,
+          opacity: Math.random() * 0.5 + 0.3,
+          color: "#e6395e"
+        });
+      }
+
+      function drawHeart(x, y, size, opacity, colorPrefix) {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.scale(size / 30, size / 30);
+        ctx.fillStyle = `${colorPrefix} ${opacity})`;
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.bezierCurveTo(-15, -15, -25, 5, 0, 25);
+        ctx.bezierCurveTo(25, 5, 15, -15, 0, 0);
+        ctx.fill();
+        ctx.restore();
+      }
+
+      function drawPetal(x, y, size, rot, opacity) {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(rot);
+        ctx.scale(1, 0.5);
+        ctx.fillStyle = `rgba(224, 60, 95, ${opacity})`;
+        ctx.beginPath();
+        ctx.arc(0, 0, size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, width, height);
+
+        // Update & Render Rising Hearts
+        for (let h of hearts) {
+          h.y -= h.speedY;
+          h.angle += h.wobbleSpeed;
+          h.x += Math.sin(h.angle) * 0.7;
+
+          if (h.y < -30) {
+            h.y = height + 30;
+            h.x = Math.random() * width;
+          }
+          drawHeart(h.x, h.y, h.size, h.opacity, h.color);
+        }
+
+        // Update & Render Falling Rose Petals
+        for (let p of petals) {
+          p.y += p.speedY;
+          p.x += Math.sin(p.rot) * 0.5 + p.speedX;
+          p.rot += p.rotSpeed;
+
+          if (p.y > height + 20) {
+            p.y = -20;
+            p.x = Math.random() * width;
+          }
+          drawPetal(p.x, p.y, p.size, p.rot, p.opacity);
+        }
+
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+    }
+
+
+    /**
+     * =========================================================================
+     * CONFETTI & CELEBRATION SPARKLES ENGINE
+     * =========================================================================
+     */
+    let confettiParticles = [];
+    let isConfettiRunning = false;
+
+    function initConfetti() {
+      const canvas = document.getElementById("confettiCanvas");
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      window.addEventListener("resize", () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      });
+    }
+
+    function fireConfetti(originX, originY, count = 75) {
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReduced) return;
+
+      const canvas = document.getElementById("confettiCanvas");
+      const ctx = canvas.getContext("2d");
+
+      const colors = ["#ff4b72", "#ffd166", "#fce7f0", "#ff7597", "#ffffff", "#e03b66"];
+
+      for (let i = 0; i < count; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const velocity = Math.random() * 9 + 4;
+        confettiParticles.push({
+          x: originX || canvas.width / 2,
+          y: originY || canvas.height / 2,
+          vx: Math.cos(angle) * velocity,
+          vy: Math.sin(angle) * velocity - 3,
+          size: Math.random() * 8 + 5,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          rotation: Math.random() * 360,
+          rotationSpeed: Math.random() * 10 - 5,
+          gravity: 0.22,
+          opacity: 1,
+          decay: Math.random() * 0.015 + 0.01,
+          shape: Math.random() > 0.4 ? "circle" : (Math.random() > 0.5 ? "heart" : "rect")
+        });
+      }
+
+      if (!isConfettiRunning) {
+        isConfettiRunning = true;
+        renderConfettiLoop(canvas, ctx);
+      }
+    }
+
+    function renderConfettiLoop(canvas, ctx) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      for (let i = confettiParticles.length - 1; i >= 0; i--) {
+        const p = confettiParticles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += p.gravity;
+        p.vx *= 0.98;
+        p.opacity -= p.decay;
+        p.rotation += p.rotationSpeed;
+
+        if (p.opacity <= 0) {
+          confettiParticles.splice(i, 1);
+          continue;
+        }
+
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate((p.rotation * Math.PI) / 180);
+        ctx.globalAlpha = p.opacity;
+        ctx.fillStyle = p.color;
+
+        if (p.shape === "circle") {
+          ctx.beginPath();
+          ctx.arc(0, 0, p.size / 2, 0, Math.PI * 2);
+          ctx.fill();
+        } else if (p.shape === "rect") {
+          ctx.fillRect(-p.size / 2, -p.size / 3, p.size, p.size * 0.6);
+        } else {
+          // Mini heart confetti
+          ctx.beginPath();
+          ctx.moveTo(0, 0);
+          ctx.bezierCurveTo(-5, -5, -8, 2, 0, 9);
+          ctx.bezierCurveTo(8, 2, 5, -5, 0, 0);
+          ctx.fill();
+        }
+        ctx.restore();
+      }
+
+      if (confettiParticles.length > 0) {
+        requestAnimationFrame(() => renderConfettiLoop(canvas, ctx));
+      } else {
+        isConfettiRunning = false;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+    }
+
+
+    /**
+     * =========================================================================
+     * INTERACTIVE BIRTHDAY CANDLE (Tap to blow out & relight)
+     * =========================================================================
+     */
+    function initInteractiveCandle() {
+      const cake = document.getElementById("cakeInteractive");
+      const wishHint = document.getElementById("wishHintText");
+
+      cake.addEventListener("click", () => {
+        if (!cake.classList.contains("blown")) {
+          // Blow out candle!
+          cake.classList.add("blown");
+          wishHint.textContent = `${CONFIG.birthday.wishGranted} (Tap to relight 🕯️)`;
+          wishHint.style.color = "#ffd166";
+
+          // Confetti explosion from the candle
+          const rect = cake.getBoundingClientRect();
+          fireConfetti(rect.left + rect.width / 2, rect.top + 30, 80);
+
+          // Gentle haptic tap on mobile
+          if (navigator.vibrate) {
+            navigator.vibrate([40, 60, 40]);
+          }
+        } else {
+          // Relight candle!
+          cake.classList.remove("blown");
+          wishHint.textContent = "Candle relit! Make another wish ✨";
+          wishHint.style.color = "var(--blush-soft)";
+        }
+      });
+    }
+
+
+    /**
+     * =========================================================================
+     * NEW: SEJAL'S OFFICIAL WORLD ATLAS 🌍 LOGIC
+     * =========================================================================
+     */
+    const tappedPinsSet = new Set();
+
+    function initAtlasSection() {
+      const container = document.getElementById("atlasPinsContainer");
+      const rewardBox = document.getElementById("atlasRewardBox");
+      container.innerHTML = "";
+
+      CONFIG.atlas.pins.forEach(pin => {
+        const station = document.createElement("div");
+        station.className = `map-station ${pin.animClass}`;
+        station.id = `station-${pin.id}`;
+        station.setAttribute("role", "button");
+        station.setAttribute("tabindex", "0");
+        station.setAttribute("aria-label", `Discover what Sejal thinks of ${pin.name}`);
+
+        station.innerHTML = `
+          <div class="pin-btn">
+            <span aria-hidden="true">${pin.icon}</span>
+          </div>
+          <div class="station-name">${pin.name}</div>
+          <div class="speech-bubble">"${pin.thought}"</div>
+          <div class="atlas-stamp">${pin.stamp}</div>
+        `;
+
+        station.addEventListener("click", () => {
+          handlePinTap(station, pin.id);
+        });
+
+        container.appendChild(station);
+      });
+    }
+
+    function handlePinTap(stationEl, pinId) {
+      const wasAlreadyTapped = stationEl.classList.contains("tapped");
+      stationEl.classList.add("tapped");
+      tappedPinsSet.add(pinId);
+
+      const rect = stationEl.getBoundingClientRect();
+      // Mini sparkle burst for each pin tap
+      fireConfetti(rect.left + rect.width / 2, rect.top + 20, 20);
+
+      if (navigator.vibrate) {
+        navigator.vibrate([30, 40]);
+      }
+
+      // Check if all 4 pins have been explored!
+      if (tappedPinsSet.size === CONFIG.atlas.pins.length) {
+        const rewardBox = document.getElementById("atlasRewardBox");
+        if (!rewardBox.classList.contains("unlocked")) {
+          rewardBox.classList.add("unlocked");
+
+          // Grand celebratory burst for unlocking the atlas reward
+          setTimeout(() => {
+            const boxRect = rewardBox.getBoundingClientRect();
+            fireConfetti(window.innerWidth / 2, boxRect.top + boxRect.height / 2, 85);
+          }, 350);
+        }
+      }
+    }
+
+
+    /**
+     * =========================================================================
+     * SECTION 3: INTERACTIVE LOVE NOTES DECK
+     * =========================================================================
+     */
+    let currentNoteIndex = 0;
+
+    function initLoveNotesDeck() {
+      const card = document.getElementById("activeNoteCard");
+      const prevBtn = document.getElementById("prevNoteBtn");
+      const nextBtn = document.getElementById("nextNoteBtn");
+      const dotsContainer = document.getElementById("notesDotsContainer");
+
+      // Generate indicator dots
+      dotsContainer.innerHTML = "";
+      CONFIG.loveNotes.forEach((_, idx) => {
+        const dot = document.createElement("div");
+        dot.className = `note-dot ${idx === 0 ? "active" : ""}`;
+        dot.addEventListener("click", () => {
+          showNote(idx);
+        });
+        dotsContainer.appendChild(dot);
+      });
+
+      // Tap card to flip
+      card.addEventListener("click", () => {
+        card.classList.toggle("flipped");
+        if (card.classList.contains("flipped")) {
+          const rect = card.getBoundingClientRect();
+          fireConfetti(rect.left + rect.width / 2, rect.top + rect.height / 2, 25);
+        }
+      });
+
+      // Nav buttons
+      prevBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        if (currentNoteIndex > 0) {
+          showNote(currentNoteIndex - 1);
+        }
+      });
+
+      nextBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        if (currentNoteIndex < CONFIG.loveNotes.length - 1) {
+          showNote(currentNoteIndex + 1);
+        }
+      });
+
+      // Swipe support for touch devices
+      let touchStartX = 0;
+      let touchEndX = 0;
+      card.addEventListener("touchstart", (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+
+      card.addEventListener("touchend", (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+      }, { passive: true });
+
+      function handleSwipe() {
+        const threshold = 45;
+        if (touchEndX < touchStartX - threshold) {
+          // Swipe left -> Next note
+          if (currentNoteIndex < CONFIG.loveNotes.length - 1) {
+            showNote(currentNoteIndex + 1);
+          }
+        }
+        if (touchEndX > touchStartX + threshold) {
+          // Swipe right -> Prev note
+          if (currentNoteIndex > 0) {
+            showNote(currentNoteIndex - 1);
+          }
+        }
+      }
+
+      showNote(0);
+    }
+
+    function showNote(index) {
+      currentNoteIndex = index;
+      const card = document.getElementById("activeNoteCard");
+      const prevBtn = document.getElementById("prevNoteBtn");
+      const nextBtn = document.getElementById("nextNoteBtn");
+      const counter = document.getElementById("deckCounter");
+      const noteData = CONFIG.loveNotes[index];
+
+      // Reset flip smoothly before changing content if flipped
+      if (card.classList.contains("flipped")) {
+        card.classList.remove("flipped");
+      }
+
+      setTimeout(() => {
+        // Front Face
+        document.getElementById("cardFrontCategory").textContent = noteData.category;
+        document.getElementById("cardFrontIcon").textContent = noteData.icon || "💌";
+        document.getElementById("cardFrontNum").textContent = index + 1;
+        document.getElementById("cardFrontTotal").textContent = CONFIG.loveNotes.length;
+
+        // Back Face
+        document.getElementById("cardBackCategory").textContent = noteData.category;
+        document.getElementById("cardBackNum").textContent = `Note ${index + 1}/${CONFIG.loveNotes.length}`;
+        document.getElementById("cardBackBody").textContent = `"${noteData.body}"`;
+
+        // Counter & Buttons
+        counter.textContent = `Note ${index + 1} of ${CONFIG.loveNotes.length}`;
+        prevBtn.disabled = index === 0;
+        nextBtn.disabled = index === CONFIG.loveNotes.length - 1;
+
+        // Update Dots
+        const dots = document.querySelectorAll(".note-dot");
+        dots.forEach((dot, idx) => {
+          dot.classList.toggle("active", idx === index);
+        });
+      }, 180);
+    }
+
+
+    /**
+     * =========================================================================
+     * SECTION 4: ADORE JAR / REASONS WHY I LOVE YOU
+     * =========================================================================
+     */
+    let currentReasonIndex = 0;
+
+    function initAdoreJar() {
+      const jar = document.getElementById("adoreJarTrigger");
+      const btn = document.getElementById("btnRevealNextReason");
+      const textEl = document.getElementById("adoreReasonText");
+      const bubble = document.getElementById("adoreBubbleBox");
+
+      function nextReason() {
+        currentReasonIndex = (currentReasonIndex + 1) % CONFIG.moment.reasons.length;
+        const newReason = CONFIG.moment.reasons[currentReasonIndex];
+
+        bubble.style.transform = "scale(0.95)";
+        bubble.style.opacity = "0.5";
+
+        setTimeout(() => {
+          textEl.textContent = `"${newReason}"`;
+          bubble.style.transform = "scale(1)";
+          bubble.style.opacity = "1";
+
+          const rect = jar.getBoundingClientRect();
+          fireConfetti(rect.left + rect.width / 2, rect.top + rect.height / 2, 20);
+        }, 150);
+      }
+
+      jar.addEventListener("click", nextReason);
+      btn.addEventListener("click", nextReason);
+    }
+
+
+    /**
+     * =========================================================================
+     * SECTION 5: FINAL SURPRISE & BIG HEART CONSTELLATION
+     * =========================================================================
+     */
+    function initHeartConstellation() {
+      const ring = document.getElementById("miniHeartRing");
+      const totalHearts = 42;
+      const width = 280;
+      const height = 260;
+      const centerX = width / 2;
+      const centerY = height / 2 - 10;
+
+      // Parametric Heart Formula
+      // x = 16 * sin^3(t)
+      // y = -(13 * cos(t) - 5 * cos(2t) - 2 * cos(3t) - cos(4t))
+      for (let i = 0; i < totalHearts; i++) {
+        const t = (i / totalHearts) * Math.PI * 2;
+        const xRaw = 16 * Math.pow(Math.sin(t), 3);
+        const yRaw = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+
+        // Scale to fit container
+        const scale = 7.2;
+        const x = centerX + xRaw * scale;
+        const y = centerY + yRaw * scale;
+
+        const heartEl = document.createElement("span");
+        heartEl.className = "constellation-heart";
+        heartEl.innerHTML = (i % 3 === 0) ? "✨" : (i % 2 === 0 ? "💖" : "❤️");
+        heartEl.style.left = `${(x / width) * 100}%`;
+        heartEl.style.top = `${(y / height) * 100}%`;
+        heartEl.style.transitionDelay = `${(i * 0.04).toFixed(2)}s`;
+        heartEl.style.setProperty('--delay', `${(i * 0.06).toFixed(2)}s`);
+
+        ring.appendChild(heartEl);
+      }
+    }
+
+
+    /**
+     * =========================================================================
+     * SCREEN TAP HEART BURST (Wherever she touches or clicks on screen)
+     * =========================================================================
+     */
+    function initTapHeartBurst() {
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReduced) return;
+
+      const heartSymbols = ["❤️", "💖", "✨", "💕", "🌸"];
+
+      document.addEventListener("pointerdown", (e) => {
+        // Do not spawn on buttons or links to keep clicks crisp
+        const target = e.target;
+        if (target.tagName === "BUTTON" || target.closest("button") || target.tagName === "A") {
+          return;
+        }
+
+        const count = 5;
+        for (let i = 0; i < count; i++) {
+          const heart = document.createElement("div");
+          heart.className = "tap-heart";
+          heart.textContent = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+          heart.style.left = `${e.clientX}px`;
+          heart.style.top = `${e.clientY}px`;
+
+          // Random scatter physics
+          const dx = (Math.random() - 0.5) * 120;
+          const dy = (Math.random() - 0.5) * 120 - 30;
+          const rot = (Math.random() - 0.5) * 90;
+
+          heart.style.setProperty("--dx", `${dx}px`);
+          heart.style.setProperty("--dy", `${dy}px`);
+          heart.style.setProperty("--rot", `${rot}deg`);
+
+          document.body.appendChild(heart);
+          setTimeout(() => heart.remove(), 1000);
+        }
+      });
+    }
+
+
+    /**
+     * =========================================================================
+     * SECTION OBSERVER & ACTIONS NAVIGATION
+     * =========================================================================
+     */
+    function initSectionObserver() {
+      const sections = document.querySelectorAll(".screen-section");
+      const dots = document.querySelectorAll(".chapter-dot");
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+            dots.forEach(dot => {
+              dot.classList.toggle("active", dot.getAttribute("data-target") === id);
+            });
+          }
+        });
+      }, { threshold: 0.5 });
+
+      sections.forEach(sec => observer.observe(sec));
+
+      dots.forEach(dot => {
+        dot.addEventListener("click", () => {
+          const targetId = dot.getAttribute("data-target");
+          const targetEl = document.getElementById(targetId);
+          if (targetEl) {
+            targetEl.scrollIntoView({ behavior: "smooth" });
+          }
+        });
+      });
+    }
+
+    function initActionButtons() {
+      // 1. Hero Open Gift button & Heart click
+      const btnOpen = document.getElementById("btnOpenGift");
+      const heroHeart = document.getElementById("heroHeartButton");
+
+      function startExperience(e) {
+        const rect = btnOpen.getBoundingClientRect();
+        fireConfetti(rect.left + rect.width / 2, rect.top, 90);
+        
+        // Auto trigger pleasant music on first action
+        toggleMusic(true);
+
+        const birthdaySection = document.getElementById("birthdayScreen");
+        birthdaySection.scrollIntoView({ behavior: "smooth" });
+      }
+
+      btnOpen.addEventListener("click", startExperience);
+      heroHeart.addEventListener("click", startExperience);
+
+      // 2. Birthday Screen -> Atlas button
+      document.getElementById("btnToAtlas").addEventListener("click", () => {
+        document.getElementById("atlasScreen").scrollIntoView({ behavior: "smooth" });
+      });
+
+      // 3. Atlas Screen -> Love Notes button
+      document.getElementById("btnAtlasToNotes").addEventListener("click", () => {
+        document.getElementById("notesScreen").scrollIntoView({ behavior: "smooth" });
+      });
+
+      // 4. Notes Screen -> Moment button
+      document.getElementById("btnToMoment").addEventListener("click", () => {
+        document.getElementById("momentScreen").scrollIntoView({ behavior: "smooth" });
+      });
+
+      // 5. Moment Screen -> One Last Thing button
+      document.getElementById("btnToOneLastThing").addEventListener("click", () => {
+        document.getElementById("finalScreen").scrollIntoView({ behavior: "smooth" });
+        revealFinalStage();
+      });
+
+      // 6. Final Gate unlock button
+      document.getElementById("btnUnlockFinal").addEventListener("click", () => {
+        revealFinalStage();
+      });
+
+      function revealFinalStage() {
+        const gate = document.getElementById("finalGate");
+        const stage = document.getElementById("finalStage");
+
+        gate.classList.add("hidden");
+        stage.classList.add("revealed");
+
+        // Fire grand finale confetti
+        setTimeout(() => {
+          const rect = stage.getBoundingClientRect();
+          fireConfetti(window.innerWidth / 2, window.innerHeight * 0.4, 130);
+        }, 300);
+      }
+
+      // 7. Send Kiss button
+      document.getElementById("btnSendKiss").addEventListener("click", (e) => {
+        const rect = e.target.getBoundingClientRect();
+        for (let i = 0; i < 7; i++) {
+          setTimeout(() => {
+            const kiss = document.createElement("div");
+            kiss.className = "flying-kiss";
+            kiss.textContent = (i % 2 === 0) ? "💋" : "❤️";
+            kiss.style.left = `${rect.left + rect.width / 2}px`;
+            kiss.style.top = `${rect.top}px`;
+            kiss.style.setProperty("--kdx", `${(Math.random() - 0.5) * 140}px`);
+
+            document.body.appendChild(kiss);
+            setTimeout(() => kiss.remove(), 1600);
+          }, i * 140);
+        }
+      });
+
+      // 8. Replay button
+      document.getElementById("btnReplay").addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    }
+  </script>
+</body>
+</html>
