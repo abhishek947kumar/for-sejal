@@ -2216,8 +2216,8 @@
       recipientName: "Sejal",
       birthdayDate: "1st December",
       
-      // Optional Custom Music URL (e.g., upload "munbe-vaa.mp3" to GitHub & set "munbe-vaa.mp3" here;
-      // otherwise plays the built-in soothing South Indian romantic flute & strings melody)
+      // Optional Custom Music URL (e.g., upload "pehla-nasha.mp3" to GitHub & set "pehla-nasha.mp3" here;
+      // otherwise plays the built-in instrumental arrangement of "Pehla Nasha")
       musicUrl: "", 
 
       // Section 1: Opening Screen
@@ -2477,7 +2477,7 @@
 
     /**
      * =========================================================================
-     * AUDIO ENGINE (Custom MP3 + Soothing South Indian Romantic Melody)
+     * AUDIO ENGINE (Custom MP3 + "Pehla Nasha" Instrumental Arrangement)
      * =========================================================================
      */
     let audioCtx = null;
@@ -2530,23 +2530,23 @@
       } else {
         isPlaying = true;
         musicBtn.classList.add("playing");
-        musicLabel.textContent = "Music On 💖";
+        musicLabel.textContent = "Pehla Nasha 💖";
 
         if (CONFIG.musicUrl && CONFIG.musicUrl.trim() !== "") {
           if (!audioEl.src || audioEl.src !== CONFIG.musicUrl) {
             audioEl.src = CONFIG.musicUrl;
           }
           audioEl.play().catch(e => {
-            console.log("Audio file playback blocked, switching to South Indian romantic melody.");
-            startSouthIndianMelody();
+            console.log("Audio file playback blocked, switching to built-in Pehla Nasha instrumental.");
+            startPehlaNashaInstrumental();
           });
         } else {
-          startSouthIndianMelody();
+          startPehlaNashaInstrumental();
         }
       }
     }
 
-    function startSouthIndianMelody() {
+    function startPehlaNashaInstrumental() {
       if (!window.AudioContext && !window.webkitAudioContext) return;
       if (!audioCtx) {
         audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -2555,72 +2555,96 @@
         audioCtx.resume();
       }
 
-      // Start gentle tanpura/strings pad in D (D3 + A3)
       stopPadNodes();
-      startWarmDrone(146.83, 0.025); // D3
-      startWarmDrone(220.00, 0.018); // A3
+      // Warm F Major strings drone (F3 + C4)
+      startWarmDrone(174.61, 0.022); // F3
+      startWarmDrone(261.63, 0.015); // C4
 
-      // Expressive South Indian love-story melody in Raga Mohanam / Kalyani (D Major)
-      // Each step: [fluteFreq (or null for rest/hold), durationSec, slideFromFreq, harpFreq]
+      // Notes in F Major (Pehla Nasha key)
       const N = {
-        D4: 293.66, E4: 329.63, Fs4: 369.99, G4: 392.00, A4: 440.00, B4: 493.88,
-        Cs5: 554.37, D5: 587.33, E5: 659.25, Fs5: 739.99, A5: 880.00,
-        D3: 146.83, A3: 220.00, B3: 246.94, G3: 196.00
+        F3: 174.61, G3: 196.00, A3: 220.00, Bb3: 233.08, C4: 261.63, D4: 293.66, E4: 329.63,
+        F4: 349.23, G4: 392.00, A4: 440.00, Bb4: 466.16, C5: 523.25, D5: 587.33, E5: 659.25, F5: 698.46
       };
 
-      const phrase = [
-        // Bar 1 (Dmaj7 - gentle opening call)
-        [N.Fs4, 1.1, N.E4, N.D3],
-        [N.A4,  1.2, N.Fs4, N.A3],
-        [N.B4,  0.9, N.A4, null],
-        [N.A4,  1.5, N.B4, N.Fs4],
-        // Bar 2 (Bm7 - tender longing)
-        [N.Fs4, 0.9, N.A4, N.B3],
-        [N.E4,  1.0, N.Fs4, N.A3],
-        [N.D4,  1.6, N.E4, N.D4],
-        [null,  0.6, null, N.Fs4],
-        // Bar 3 (Gmaj7 - soaring romantic phrase)
-        [N.A4,  0.9, N.Fs4, N.G3],
-        [N.D5,  1.3, N.B4, N.B3],
-        [N.E5,  1.1, N.D5, N.D4],
-        [N.D5,  1.4, N.E5, N.Fs4],
-        // Bar 4 (A6 -> Dmaj7 - warm resolve)
-        [N.B4,  0.9, N.D5, N.A3],
-        [N.A4,  1.0, N.B4, N.E4],
-        [N.Fs4, 1.7, N.A4, N.D4],
-        [null,  0.8, null, N.A3],
-        // Bar 5 (High Mohanam peak)
-        [N.D5,  1.0, N.A4, N.D3],
-        [N.Fs5, 1.3, N.E5, N.A3],
-        [N.E5,  1.0, N.Fs5, N.D4],
-        [N.D5,  1.3, N.E5, N.Fs4],
-        // Bar 6 (Soft descent)
-        [N.B4,  1.1, N.D5, N.G3],
-        [N.A4,  1.0, N.B4, N.D4],
-        [N.Fs4, 1.2, N.A4, N.B3],
-        [N.E4,  1.3, N.Fs4, N.A3],
-        // Bar 7-8 (Gentle home cadence)
-        [N.Fs4, 1.0, N.E4, N.D3],
-        [N.A4,  1.1, N.Fs4, N.A3],
-        [N.Fs4, 1.0, N.A4, N.Fs4],
-        [N.D4,  2.1, N.E4, N.D4]
+      // Each step: [leadPianoFreq, leadDur, bass/arpeggioFreq]
+      const score = [
+        // Dreamy Piano Intro Arpeggio (Fmaj7 -> Dm7 -> Bb -> C)
+        [N.F4,  1.2, N.F3],
+        [N.A4,  1.2, N.C4],
+        [N.C5,  1.2, N.F4],
+        [N.F5,  1.8, N.A4],
+        [N.E5,  1.2, N.D4],
+        [N.C5,  1.2, N.A3],
+        [N.A4,  1.6, N.F3],
+        [null,  0.8, N.C4],
+
+        // "Peh-la na-shaa..." (F -> Am/E)
+        [N.F4,  0.8, N.F3],
+        [N.G4,  0.8, N.C4],
+        [N.A4,  1.0, N.F4],
+        [N.C5,  1.8, N.A4],
+        // "...peh-la khu-maar" (Dm -> Bb)
+        [N.G4,  0.8, N.D4],
+        [N.A4,  0.8, N.A3],
+        [N.Bb4, 0.9, N.Bb3],
+        [N.A4,  0.8, N.F3],
+        [N.G4,  1.6, N.C4],
+
+        // "Na-ya pyaar hai..." (F -> Bb)
+        [N.F4,  0.8, N.F3],
+        [N.G4,  0.8, N.C4],
+        [N.A4,  0.9, N.F4],
+        [N.C5,  0.9, N.A4],
+        [N.D5,  1.7, N.Bb3],
+        // "...na-ya in-te-zaar" (C -> F)
+        [N.C5,  0.8, N.C4],
+        [N.Bb4, 0.8, N.G3],
+        [N.A4,  0.8, N.C4],
+        [N.G4,  0.9, N.E4],
+        [N.F4,  1.8, N.F3],
+
+        // "Kar loon main kya ap-na haal..." (Bb -> C)
+        [N.D5,  0.8, N.Bb3],
+        [N.D5,  0.8, N.F4],
+        [N.C5,  0.8, N.C4],
+        [N.Bb4, 0.9, N.G3],
+        [N.A4,  0.9, N.A3],
+        [N.G4,  1.5, N.C4],
+        // "...aye dil-e-be-qa-raar" (C7 -> F)
+        [N.C5,  0.8, N.C4],
+        [N.C5,  0.8, N.G3],
+        [N.Bb4, 0.8, N.E4],
+        [N.A4,  0.8, N.C4],
+        [N.G4,  0.9, N.G3],
+        [N.F4,  2.0, N.F3],
+
+        // "Me-re dil-e-be-qa-raar, tu hi ba-ta"
+        [N.A4,  0.7, N.F3],
+        [N.Bb4, 0.7, N.C4],
+        [N.C5,  0.9, N.F4],
+        [N.D5,  1.1, N.Bb3],
+        [N.C5,  0.8, N.C4],
+        [N.Bb4, 0.8, N.G3],
+        [N.A4,  0.9, N.A3],
+        [N.G4,  0.9, N.C4],
+        [N.F4,  2.4, N.F3]
       ];
 
       let step = 0;
-      const stepMs = 680;
+      const stepMs = 460;
 
       function playNextBeat() {
         if (!isPlaying || !audioCtx) return;
 
-        const [fluteFreq, dur, slideFrom, harpFreq] = phrase[step];
-        if (fluteFreq) {
-          playFluteNote(fluteFreq, dur, slideFrom);
+        const [leadFreq, dur, arpFreq] = score[step];
+        if (leadFreq) {
+          playPianoNote(leadFreq, dur, 0.085);
         }
-        if (harpFreq) {
-          playSoftPluck(harpFreq, 1.6);
+        if (arpFreq) {
+          playPianoNote(arpFreq, 1.4, 0.032);
         }
 
-        step = (step + 1) % phrase.length;
+        step = (step + 1) % score.length;
       }
 
       if (synthTimer) clearInterval(synthTimer);
@@ -2635,7 +2659,7 @@
         osc.type = "sine";
         osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
         gain.gain.setValueAtTime(0.0001, audioCtx.currentTime);
-        gain.gain.linearRampToValueAtTime(volume, audioCtx.currentTime + 2.0);
+        gain.gain.linearRampToValueAtTime(volume, audioCtx.currentTime + 1.8);
         osc.connect(gain);
         gain.connect(audioCtx.destination);
         osc.start();
@@ -2643,66 +2667,43 @@
       } catch (err) {}
     }
 
-    function playFluteNote(freq, duration = 1.2, slideFrom = null) {
+    function playPianoNote(freq, duration = 1.4, peakGain = 0.08) {
       try {
         const now = audioCtx.currentTime;
-        const osc = audioCtx.createOscillator();
-        const subOsc = audioCtx.createOscillator();
+        const osc1 = audioCtx.createOscillator();
+        const osc2 = audioCtx.createOscillator();
+        const filter = audioCtx.createBiquadFilter();
         const gain = audioCtx.createGain();
+
+        // Mellow felt-piano timbre (triangle fundamental + soft 2nd harmonic)
+        osc1.type = "triangle";
+        osc1.frequency.setValueAtTime(freq, now);
+
+        osc2.type = "sine";
+        osc2.frequency.setValueAtTime(freq * 2, now);
+
+        filter.type = "lowpass";
+        filter.frequency.setValueAtTime(1700, now);
+        filter.frequency.exponentialRampToValueAtTime(550, now + duration);
+
         const subGain = audioCtx.createGain();
-
-        osc.type = "sine";
-        subOsc.type = "triangle";
-
-        if (slideFrom) {
-          osc.frequency.setValueAtTime(slideFrom, now);
-          osc.frequency.exponentialRampToValueAtTime(freq, now + 0.09);
-          subOsc.frequency.setValueAtTime(slideFrom, now);
-          subOsc.frequency.exponentialRampToValueAtTime(freq, now + 0.09);
-        } else {
-          osc.frequency.setValueAtTime(freq, now);
-          subOsc.frequency.setValueAtTime(freq, now);
-        }
-
-        // Soft breathy flute envelope
-        gain.gain.setValueAtTime(0.0001, now);
-        gain.gain.linearRampToValueAtTime(0.075, now + 0.14);
-        gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
-
-        subGain.gain.setValueAtTime(0.0001, now);
-        subGain.gain.linearRampToValueAtTime(0.015, now + 0.18);
-        subGain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
-
-        osc.connect(gain);
-        subOsc.connect(subGain);
-        gain.connect(audioCtx.destination);
-        subGain.connect(audioCtx.destination);
-
-        osc.start(now);
-        subOsc.start(now);
-        osc.stop(now + duration + 0.05);
-        subOsc.stop(now + duration + 0.05);
-      } catch (err) {}
-    }
-
-    function playSoftPluck(freq, duration = 1.5) {
-      try {
-        const now = audioCtx.currentTime;
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-
-        osc.type = "triangle";
-        osc.frequency.setValueAtTime(freq, now);
+        subGain.gain.setValueAtTime(0.22, now);
+        subGain.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
 
         gain.gain.setValueAtTime(0.0001, now);
-        gain.gain.linearRampToValueAtTime(0.035, now + 0.02);
+        gain.gain.linearRampToValueAtTime(peakGain, now + 0.025);
         gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
 
-        osc.connect(gain);
+        osc1.connect(filter);
+        osc2.connect(subGain);
+        subGain.connect(filter);
+        filter.connect(gain);
         gain.connect(audioCtx.destination);
 
-        osc.start(now);
-        osc.stop(now + duration + 0.05);
+        osc1.start(now);
+        osc2.start(now);
+        osc1.stop(now + duration + 0.05);
+        osc2.stop(now + duration + 0.05);
       } catch (err) {}
     }
 
